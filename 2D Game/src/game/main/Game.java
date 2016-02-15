@@ -43,22 +43,6 @@ public class Game implements Runnable{
 		this.tps = tps;
 	}
 	
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
 	@Override
 	public void run() {
 		init();
@@ -118,7 +102,7 @@ public class Game implements Runnable{
 		key = new KeyManager();
 		display.getFrame().addKeyListener(key);
 		Assets.init();
-		player = new Player(this,50,50, startVec );
+		player = new Player(this,50,50, startVec , 100);
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	}
 	
@@ -147,6 +131,22 @@ public class Game implements Runnable{
 
 	public void setKey(KeyManager key) {
 		this.key = key;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	
 	

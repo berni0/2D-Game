@@ -13,6 +13,7 @@ public class Player extends Entity {
 	private Game game;
 	private static int width = 64;
 	private static int height = 64;
+	private final int jumpHeight;
 	private Vector2D vel;
 	private Vector2D directionChange = new Vector2D(0, 0, true);
 	private boolean jumping = false, scheduledJump = false;
@@ -26,9 +27,10 @@ public class Player extends Entity {
 	private Animation animJRight = new Animation(100, Assets.playerRight);
 
 
-	public Player(Game g, double x, double y, Vector2D vel) {
+	public Player(Game g, double x, double y, Vector2D vel, int jumpHeight) {
 		super(x, y, width, height);
 		this.vel = vel;
+		this.jumpHeight = jumpHeight;
 		game = g;
 	}
 
@@ -60,7 +62,7 @@ public class Player extends Entity {
 
 	public void jump() {
 		if (!jumping) {
-			vel = Vector2D.add(vel, new Vector2D(90, 90, false));
+			vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
 			jumping = true;
 		} else if (!scheduledJump && vel.getY() < 0) {
 			scheduledJump = true;
