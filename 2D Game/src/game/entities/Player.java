@@ -157,21 +157,15 @@ public class Player extends Entity {
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
-		if(hasGround()){
 			if(vel.getX()<0){
+				if(!hasGround()) return animJLeft.getCurrentFrame();
 				return animLeft.getCurrentFrame();
 			}else if(vel.getX()>0){
+				if(!hasGround()) return animJRight.getCurrentFrame();
 				return animRight.getCurrentFrame();
 			}else{
 				return animIdle.getCurrentFrame();
 			}
-		}else{
-			if(vel.getX()<0){
-				return animJLeft.getCurrentFrame();
-			}else{
-				return animJRight.getCurrentFrame();
-			}
-		}
 		
 	}
 }
