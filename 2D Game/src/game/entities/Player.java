@@ -19,6 +19,9 @@ public class Player extends Entity {
 	private boolean jumping = false, scheduledJump = false;
 	private double maxSpeedXDir = 110;
 	
+	//Testing 
+	private double dX,dY;
+	
 	
 	private Animation animRight = new Animation(100, Assets.playerRight);
 	private Animation animLeft = new Animation(100, Assets.playerLeft);
@@ -40,8 +43,10 @@ public class Player extends Entity {
 	}
 
 	public void move(double dX, double dY) {	
+		if(!collision(dX, dY)){
 		x += dX;
 		y += dY;
+		}
 	}
 
 	public double getX() {
@@ -137,8 +142,8 @@ public class Player extends Entity {
 		}
 	}
 
-	private boolean collision(Vector2D vel) {
-		if(x+vel.getX() >= game.getWidth()|| x+vel.getX() < 0)
+	private boolean collision(double dX, double dY) {
+		if(x+dX >= game.getWidth()-this.width|| x+dX < 0)
 			return true;
 		return false;
 	}
