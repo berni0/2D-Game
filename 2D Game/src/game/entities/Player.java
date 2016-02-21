@@ -39,7 +39,7 @@ public class Player extends Entity {
 		this.y = y;
 	}
 
-	public void move(double dX, double dY) {
+	public void move(double dX, double dY) {	
 		x += dX;
 		y += dY;
 	}
@@ -119,6 +119,7 @@ public class Player extends Entity {
 					}
 					vel.setY(0);
 				}
+				
 				move(vel.getX() / 100, vel.getY() / 100);
 	}
 	
@@ -136,6 +137,13 @@ public class Player extends Entity {
 		}
 	}
 
+	private boolean collision(Vector2D vel) {
+		if(x+vel.getX() >= game.getWidth()|| x+vel.getX() < 0)
+			return true;
+		return false;
+	}
+
+	
 	private boolean hasGround() {
 		if (y <= 0 && vel.getY() <= 0) {
 			jumping = false;

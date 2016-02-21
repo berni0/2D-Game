@@ -1,6 +1,5 @@
 package game.entities;
 
-import java.awt.Graphics;
 
 public abstract class Creature extends Entity{
 
