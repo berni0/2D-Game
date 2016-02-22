@@ -19,8 +19,7 @@ public class Player extends Entity {
 	private boolean jumping = false, scheduledJump = false;
 	private double maxSpeedXDir = 110;
 	
-	//Testing 
-	private double dX,dY;
+	private boolean b;
 	
 	
 	private Animation animRight = new Animation(100, Assets.playerRight);
@@ -144,6 +143,8 @@ public class Player extends Entity {
 
 	private boolean collision(double dX, double dY) {
 		if(x+dX >= game.getWidth()-this.width|| x+dX < -10)
+			return true;
+		if(getBounds().intersects(game.o.getBounds()))
 			return true;
 		return false;
 	}

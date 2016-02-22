@@ -4,12 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import game.entities.Obstacle;
+import game.entities.Player;
 import game.gfx.Assets;
 import game.gfx.ImageLoader;
 import game.graphics.GUI;
 import game.input.KeyManager;
 import game.utilities.Vector2D;
-import game.entities.Player;
 
 public class Game implements Runnable{
 	
@@ -28,7 +29,9 @@ public class Game implements Runnable{
 	private GUI display;
 	private BufferStrategy bs;
 	private Graphics g;
+	
 	private Player player;
+	public Obstacle o;
 	
 	private Thread thread;
 	
@@ -92,6 +95,7 @@ public class Game implements Runnable{
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 		
 		player.render(g);
+		o.render(g);
 		
 		bs.show();
 		g.dispose();
@@ -100,9 +104,13 @@ public class Game implements Runnable{
 	private void init(){
 		display = new GUI(this.width, this.height);
 		key = new KeyManager();
+		
 		display.getFrame().addKeyListener(key);
+		
 		Assets.init();
+		
 		player = new Player(this,50,50, startVec , 100);
+		o = new Obstacle(this, 200, 100, 50,50);
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	}
 	
