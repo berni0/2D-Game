@@ -34,6 +34,7 @@ public class Player extends Entity {
 		this.vel = vel;
 		this.jumpHeight = jumpHeight;
 		game = g;
+		isStatic = false;
 	}
 
 	public void moveTo(double x, double y) {
@@ -74,7 +75,7 @@ public class Player extends Entity {
 	public void moveLeft() {
 		directionChange.setX(-1.8);
 	}
-
+	
 	public void moveRight() {
 		directionChange.setX(1.8);
 	}

@@ -81,6 +81,7 @@ public class Game implements Runnable{
 	private void tick() {
 		key.tick();
 		player.tick();
+		
 		}
 
 	private void render() {

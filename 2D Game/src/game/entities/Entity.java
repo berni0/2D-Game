@@ -6,31 +6,40 @@ import java.awt.image.BufferedImage;
 
 import game.gfx.ImageLoader;
 
-
 public abstract class Entity {
-	
+
 	protected double x, y;
 	protected int width, height;
 	protected BufferedImage bImg;
-	
-	public Entity(double x, double y, int width, int height){
+	protected boolean isStatic;
+
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
+	}
+
+	public Entity(double x, double y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	public abstract void tick();
+
 	public abstract void render(Graphics g);
-	
-	public BufferedImage getImg(){
+
+	public BufferedImage getImg() {
 		return bImg;
 	}
-	
-	public void loadImage(String imagePath){
+
+	public void loadImage(String imagePath) {
 		bImg = ImageLoader.loadImage(imagePath);
 	}
-	
+
 	public double getX() {
 		return x;
 	}
@@ -63,7 +72,14 @@ public abstract class Entity {
 		this.height = height;
 	}
 
-	public Rectangle getBounds(){
-		return new Rectangle((int)x,(int)y, width, height);
+	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int) y, width, height);
+	}
+
+	public boolean collision(Entity e) {
+		if (this.getBounds().intersects(e.getBounds()))
+			return true;
+		else
+			return false;
 	}
 }

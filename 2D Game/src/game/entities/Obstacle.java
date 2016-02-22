@@ -11,6 +11,7 @@ public class Obstacle extends Entity {
 	public Obstacle(Game g, double x, double y, int width, int height) {
 		super(x, y, width, height);
 		this.game = g;
+		isStatic = true;
 	}
 
 	@Override
