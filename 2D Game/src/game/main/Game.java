@@ -109,7 +109,7 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
-		player = new Player(this,50,50, startVec , 100);
+		player = new Player(this,50,50, startVec , 200);
 		o = new Obstacle(this, 200, 100, 50,50);
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	}
