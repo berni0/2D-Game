@@ -1,11 +1,8 @@
 package game.entities;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import game.gfx.ImageLoader;
 
@@ -66,4 +63,7 @@ public abstract class Entity {
 		this.height = height;
 	}
 
+	public Rectangle getBounds(){
+		return new Rectangle((int)x,(int)y, width, height);
+	}
 }

@@ -143,7 +143,7 @@ public class Player extends Entity {
 	}
 
 	private boolean collision(double dX, double dY) {
-		if(x+dX >= game.getWidth()-this.width|| x+dX < 0)
+		if(x+dX >= game.getWidth()-this.width|| x+dX < -10)
 			return true;
 		return false;
 	}
@@ -183,4 +183,5 @@ public class Player extends Entity {
 			}
 		
 	}
+	
 }
