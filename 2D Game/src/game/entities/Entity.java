@@ -77,10 +77,4 @@ public abstract class Entity {
 		return new Rectangle((int) x, (int) y, width, height);
 	}
 
-	public boolean collision(Entity e) {
-		if (this.getBounds().intersects(e.getBounds()))
-			return true;
-		else
-			return false;
-	}
 }
