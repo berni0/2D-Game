@@ -42,7 +42,6 @@ public class Player extends Entity {
 	}
 
 	public void move(double dX, double dY) {	
-		collision2(dX, dY);
 		x += dX;
 		y += dY;
 	}
@@ -139,26 +138,6 @@ public class Player extends Entity {
 			stopX();
 		}
 	}
-
-	private boolean collision(double dX, double dY) {
-		/*if(x+dX >= game.getWidth()-this.width|| x+dX < -10)
-			return true;
-		if(getBounds().intersects(game.o.getBounds()))
-			return true;*/
-		
-		return false;
-	}
-	
-	private void collision2(double dX, double dY){
-		if(x+dX >= game.getWidth()-this.width || x+dX <-20){
-			vel.setX(0);
-		}
-		if(getBounds().intersects(game.o.getBounds())){
-			vel.setX(0);
-			vel.setY(0);
-		}
-	}
-
 	
 	private boolean hasGround() {
 		if (y <= 0 && vel.getY() <= 0) {
