@@ -21,7 +21,7 @@ public class Obstacle extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect((int)x, (int)(game.getHeight() - this.y - Game.topBarHeight) , width, height);
+		g.fillRect((int)x, (int)(game.getHeight() - this.y - this.height - Game.topBarHeight) , width, height);
 	}
 
 }

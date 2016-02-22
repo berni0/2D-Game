@@ -8,19 +8,13 @@ import game.utilities.Vector2D;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity {
+public class Player extends Creature {
 
-	private Game game;
 	private static int width = 64;
 	private static int height = 64;
 	private final int jumpHeight;
-	private Vector2D vel;
-	private Vector2D directionChange = new Vector2D(0, 0, true);
 	private boolean jumping = false, scheduledJump = false;
 	private double maxSpeedXDir = 110;
-	
-	private boolean b;
-	
 	
 	private Animation animRight = new Animation(100, Assets.playerRight);
 	private Animation animLeft = new Animation(100, Assets.playerLeft);
@@ -30,37 +24,9 @@ public class Player extends Entity {
 
 
 	public Player(Game g, double x, double y, Vector2D vel, int jumpHeight) {
-		super(x, y, width, height);
-		this.vel = vel;
+		super(g, x, y, vel, width, height);
 		this.jumpHeight = jumpHeight;
-		game = g;
 		isStatic = false;
-	}
-
-	public void moveTo(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	public void move(double dX, double dY) {	
-		x += dX;
-		y += dY;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public Vector2D getVelocity() {
-		return vel;
-	}
-
-	public void setVelocity(Vector2D vel) {
-		this.vel = vel;
 	}
 
 	public void jump() {
@@ -159,7 +125,8 @@ public class Player extends Entity {
 	public void render(Graphics g) {
 			g.drawImage(getCurrentAnimationFrame(), (int) this.x,
 					(int) (this.game.getHeight() - this.y - this.height - Game.topBarHeight), width, height, null);
-
+			g.drawRect((int) this.x,
+					(int) (this.game.getHeight() - this.y - this.height - Game.topBarHeight), width, height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {

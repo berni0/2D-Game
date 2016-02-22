@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import game.gfx.ImageLoader;
+import game.main.Game;
 
 public abstract class Entity {
 

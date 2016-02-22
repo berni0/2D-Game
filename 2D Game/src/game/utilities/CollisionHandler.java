@@ -1,5 +1,9 @@
 package game.utilities;
 
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import game.entities.Creature;
 import game.entities.Entity;
 import game.main.Game;
 
@@ -14,10 +18,43 @@ public class CollisionHandler {
 
 	public void tick() {
 		for (int i = 0; i < entities.length; i++) {
-			if (!entities[i].isStatic()) {
-				for (int j = i + 1; j < entities.length; j++) {
-					entities[i].collision(entities[j]);
+			for (int j = i + 1; j < entities.length; j++) {
+				if (!entities[i].isStatic() || !entities[j].isStatic()) {
+					checkCollision(entities[i], entities[j]);
 				}
+			}
+		}
+	}
+
+	private void checkCollision(Entity e1, Entity e2) {
+		// TODO Auto-generated method stub
+		Rectangle r = e1.getBounds().intersection(e2.getBounds());
+		if (!r.isEmpty()) {
+			Rectangle staticRect;
+			Rectangle mobileRect;
+			Creature c;
+			Point[] corners;
+			if (e1.isStatic()) {
+				staticRect = e1.getBounds();
+				mobileRect = e2.getBounds();
+				c = (Creature) e2;
+			} else {
+				staticRect = e2.getBounds();
+				mobileRect = e1.getBounds();
+				c = (Creature) e1;
+			}
+			if (mobileRect.getMinY() < staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
+				c.getVelocity().setY(0);
+				c.moveTo(c.getX(), staticRect.getMaxY());
+			} else if(mobileRect.getMaxY() > staticRect.getMinY() && mobileRect.getMaxY() < staticRect.getMinY() + 5){
+				c.getVelocity().setY(0);
+				c.moveTo(c.getX(), staticRect.getMinY()-c.getHeight());
+			} else if(mobileRect.getMinX() < staticRect.getMaxX() && mobileRect.getMinX() > staticRect.getMaxX() - 5){
+				c.getVelocity().setX(0);
+				c.moveTo(staticRect.getMaxX(), c.getY());
+			} else if(mobileRect.getMaxX() > staticRect.getMinX() && mobileRect.getMaxX() < staticRect.getMinX() + 5){
+				c.getVelocity().setX(0);
+				c.moveTo(staticRect.getMinX() - c.getWidth(), c.getY());
 			}
 		}
 	}

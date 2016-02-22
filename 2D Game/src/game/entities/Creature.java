@@ -1,58 +1,37 @@
 package game.entities;
 
+import game.main.Game;
+import game.utilities.Vector2D;
 
 public abstract class Creature extends Entity{
 
-	private final int DEFAULT_HEALTH = 20;
-	private final int DEFAULT_SPEED = 2;
+	protected Game game;
+	protected Vector2D vel;
+	protected Vector2D directionChange = new Vector2D(0, 0, true);
 
-	protected int health;
-	protected double speed;
-	protected double xMove, yMove;
-	
-	public Creature(double x, double y, int width, int heigth) {
-		super(x, y, width, heigth);
-		health = DEFAULT_HEALTH;
-		speed = DEFAULT_SPEED;
-		xMove = 0;
-		yMove = 0;
+	public Creature(Game g, double x, double y, Vector2D vel, int width, int height) {
+		super(x, y, width, height);
+		this.vel = vel;
+		this.game = g;
 	}
 	
-	public void move(){
-		x += xMove;
-		y += yMove;
+
+	public void moveTo(double x, double y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public int getHealth() {
-		return health;
+	public void move(double dX, double dY) {	
+		x += dX;
+		y += dY;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public Vector2D getVelocity() {
+		return vel;
 	}
 
-	public double getSpeed() {
-		return speed;
+	public void setVelocity(Vector2D vel) {
+		this.vel = vel;
 	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-
-	public double getxMove() {
-		return xMove;
-	}
-
-	public void setxMove(double xMove) {
-		this.xMove = xMove;
-	}
-
-	public double getyMove() {
-		return yMove;
-	}
-
-	public void setyMove(double yMove) {
-		this.yMove = yMove;
-	}
-	 
+	
 }
