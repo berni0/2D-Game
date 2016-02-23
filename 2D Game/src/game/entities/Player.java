@@ -43,11 +43,11 @@ public class Player extends Creature {
 	}
 
 	public void moveLeft() {
-		directionChange.setX(-1.8);
+		directionChange.setX(-2.5);
 	}
 	
 	public void moveRight() {
-		directionChange.setX(1.8);
+		directionChange.setX(2.5);
 	}
 
 	public void stopX() {
