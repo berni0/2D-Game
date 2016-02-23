@@ -6,21 +6,14 @@ import game.main.Game;
 import game.utilities.Vector2D;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity {
+public class Player extends Creature {
 
-	private Game game;
-	private static int width = 64;
-	private static int height = 64;
 	private final int jumpHeight;
-	private Vector2D vel;
-	private Vector2D directionChange = new Vector2D(0, 0, true);
-	private boolean jumping = false, scheduledJump = false;
-	private double maxSpeedXDir = 110;
-	
-	private boolean b;
-	
+	private double maxSpeedXDir = 200;
+	private double maxSpeedYDir = 300;
 	
 	private Animation animRight = new Animation(100, Assets.playerRight);
 	private Animation animLeft = new Animation(100, Assets.playerLeft);
@@ -30,53 +23,31 @@ public class Player extends Entity {
 
 
 	public Player(Game g, double x, double y, Vector2D vel, int jumpHeight) {
-		super(x, y, width, height);
-		this.vel = vel;
+		super(g, x, y, vel, 64, 64, jumpHeight);
 		this.jumpHeight = jumpHeight;
-		game = g;
-	}
-
-	public void moveTo(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	public void move(double dX, double dY) {	
-		x += dX;
-		y += dY;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public Vector2D getVelocity() {
-		return vel;
-	}
-
-	public void setVelocity(Vector2D vel) {
-		this.vel = vel;
+		isStatic = false;
 	}
 
 	public void jump() {
-		if (!jumping) {
+		if (!jumping && hasGround()) {
 			vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
 			jumping = true;
 		} else if (!scheduledJump && vel.getY() < 0) {
-			scheduledJump = true;
+			//scheduledJump = true;
 		}
+	}
+	
+	@Override 
+	public Rectangle getBounds(){
+		return new Rectangle((int) x + 5, (int) y, width-10, height);
 	}
 
 	public void moveLeft() {
-		directionChange.setX(-1.8);
+		directionChange.setX(-2.5);
 	}
-
+	
 	public void moveRight() {
-		directionChange.setX(1.8);
+		directionChange.setX(2.5);
 	}
 
 	public void stopX() {
@@ -85,11 +56,11 @@ public class Player extends Entity {
 
 	@Override
 	public void tick() {
+		keyHandle();
+		movement();
 		animLeft.tick();
 		animRight.tick();
 		animIdle.tick();
-		keyHandle();
-		movement();
 		}
 	
 	private void movement(){
@@ -100,6 +71,13 @@ public class Player extends Entity {
 						vel.setX(maxSpeedXDir);
 					} else {
 						vel.setX(-maxSpeedXDir);
+					}
+				}
+				if (Math.abs(vel.getY()) >= maxSpeedYDir) {
+					if (vel.getY() > 0) {
+						vel.setY(maxSpeedYDir);
+					} else {
+						vel.setY(-maxSpeedYDir);
 					}
 				}
 				// apply Gravity and Friction
@@ -119,7 +97,6 @@ public class Player extends Entity {
 							vel.setX(0);
 						}
 					}
-					vel.setY(0);
 				}
 				
 				move(vel.getX() / 100, vel.getY() / 100);
@@ -138,27 +115,14 @@ public class Player extends Entity {
 			stopX();
 		}
 	}
-	
-	private boolean hasGround() {
-		if (y <= 0 && vel.getY() <= 0) {
-			jumping = false;
-			if (scheduledJump) {
-				scheduledJump = false;
-				vel.setY(0);
-				jump();
-				return false;
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+
 
 	@Override
 	public void render(Graphics g) {
 			g.drawImage(getCurrentAnimationFrame(), (int) this.x,
 					(int) (this.game.getHeight() - this.y - this.height - Game.topBarHeight), width, height, null);
-
+			g.drawRect((int) this.x + 5,
+					(int) (this.game.getHeight() - this.y - this.height - Game.topBarHeight), width - 10, height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
@@ -173,5 +137,20 @@ public class Player extends Entity {
 			}
 		
 	}
+	/*
+	private boolean hasGround() {
+		if (y <= 0 && vel.getY() <= 0) {
+			jumping = false;
+			if (scheduledJump) {
+				scheduledJump = false;
+				vel.setY(0);
+				jump();
+				return false;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}*/
 	
 }

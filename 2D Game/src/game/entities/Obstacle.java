@@ -11,6 +11,7 @@ public class Obstacle extends Entity {
 	public Obstacle(Game g, double x, double y, int width, int height) {
 		super(x, y, width, height);
 		this.game = g;
+		isStatic = true;
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class Obstacle extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect((int)x, (int)(game.getHeight() - this.y - Game.topBarHeight) , width, height);
+		g.fillRect((int)x, (int)(game.getHeight() - this.y - this.height - Game.topBarHeight) , width, height);
 	}
 
 }

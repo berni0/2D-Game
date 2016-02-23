@@ -4,19 +4,21 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import game.entities.Entity;
 import game.entities.Obstacle;
 import game.entities.Player;
 import game.gfx.Assets;
 import game.gfx.ImageLoader;
 import game.graphics.GUI;
 import game.input.KeyManager;
+import game.utilities.CollisionHandler;
 import game.utilities.Vector2D;
 
 public class Game implements Runnable{
 	
-	public static Vector2D G = new Vector2D(0.5, 270, false);
-	public static Vector2D F = new Vector2D(1.0, 180, false);
-	public static int topBarHeight = 25;
+	public static Vector2D G = new Vector2D(2.5, 270, false);
+	public static Vector2D F = new Vector2D(1.5, 180, false);
+	public static int topBarHeight = 22;
 	public static Vector2D startVec = new Vector2D(0, 0, false);
 	
 	int x = 0;
@@ -32,6 +34,10 @@ public class Game implements Runnable{
 	
 	private Player player;
 	public Obstacle o;
+	public Obstacle o2;
+	public Obstacle ground;
+	
+	private CollisionHandler cH;
 	
 	private Thread thread;
 	
@@ -81,6 +87,7 @@ public class Game implements Runnable{
 	private void tick() {
 		key.tick();
 		player.tick();
+		cH.tick();
 		}
 
 	private void render() {
@@ -96,6 +103,8 @@ public class Game implements Runnable{
 		
 		player.render(g);
 		o.render(g);
+		o2.render(g);
+		ground.render(g);
 		
 		bs.show();
 		g.dispose();
@@ -109,8 +118,14 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
-		player = new Player(this,50,50, startVec , 200);
-		o = new Obstacle(this, 200, 100, 50,50);
+		player = new Player(this,50,50, startVec , 500);
+		o = new Obstacle(this, 200, 150, 50,50);
+		o2 = new Obstacle(this, 270, 130, 50, 50);
+		ground = new Obstacle(this, -50, 10, 3000, 30);
+		
+		Entity[] ent = {o, ground, o2, player};
+		cH = new CollisionHandler(this, ent);
+		
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	}
 	
