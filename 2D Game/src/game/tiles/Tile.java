@@ -10,7 +10,8 @@ public class Tile {
 		//STATIC STUFF HERE
 		
 		public static Tile[] idList = new Tile[256];
-		public static Tile grassTile = new GrassTile(0);
+		public static Tile airTile = new AirTile(0);
+		public static Tile grassTile = new GrassTile(1);
 		
 		//CLASS
 		
@@ -31,7 +32,7 @@ public class Tile {
 		}
 		
 		public void render(Graphics g, int x, int y){
-			g.drawImage(texture, x, y/*-Game.topBarHeight-Game.getHeight()*/, TILEWIDTH, TILEHEIGHT, null);
+			g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 		}
 		
 		public boolean isSolid(){

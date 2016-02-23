@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage player,grass;
+	public static BufferedImage player,grass, air;
 	public static BufferedImage playerRight[], playerLeft[], playerStand[];
 	
 	

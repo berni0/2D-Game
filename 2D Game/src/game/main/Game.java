@@ -24,7 +24,7 @@ public class Game implements Runnable{
 	
 	int x = 0;
 	
-	private static int width, height;
+	private  int width, height;
 	private boolean running = false;
 	private int tps, fps;
 	
@@ -48,8 +48,8 @@ public class Game implements Runnable{
 	private BufferedImage backgroungImg;
 	
 	public Game(int width, int height, int fps, int tps){
-		Game.height = height;
-		Game.width = width;
+		this.height = height;
+		this.width = width;
 		this.fps = fps;
 		this.tps = tps;
 	}
@@ -100,7 +100,7 @@ public class Game implements Runnable{
 		}
 		
 		g = bs.getDrawGraphics();
-		g.clearRect(0,0, Game.width, Game.height);
+		g.clearRect(0,0, this.width, this.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 		
 		world.reder(g);
@@ -114,7 +114,7 @@ public class Game implements Runnable{
 	}
 	
 	private void init(){
-		display = new GUI(Game.width, Game.height);
+		display = new GUI(this.width, this.height);
 		key = new KeyManager();
 		
 		display.getFrame().addKeyListener(key);
@@ -160,20 +160,20 @@ public class Game implements Runnable{
 		this.key = key;
 	}
 
-	public static int getWidth() {
+	public  int getWidth() {
 		return width;
 	}
 
 	public void setWidth(int width) {
-		Game.width = width;
+		this.width = width;
 	}
 
-	public static int getHeight() {
+	public  int getHeight() {
 		return height;
 	}
 
 	public void setHeight(int height) {
-		Game.height = height;
+		this.height = height;
 	}
 	
 	
