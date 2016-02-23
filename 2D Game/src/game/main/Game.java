@@ -13,6 +13,7 @@ import game.graphics.GUI;
 import game.input.KeyManager;
 import game.utilities.CollisionHandler;
 import game.utilities.Vector2D;
+import game.worlds.World;
 
 public class Game implements Runnable{
 	
@@ -33,6 +34,7 @@ public class Game implements Runnable{
 	private Graphics g;
 	
 	private Player player;
+	private World world;
 	public Obstacle o;
 	public Obstacle o2;
 	public Obstacle ground;
@@ -101,6 +103,7 @@ public class Game implements Runnable{
 		g.clearRect(0,0, Game.width, Game.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 		
+		world.reder(g);
 		player.render(g);
 		o.render(g);
 		o2.render(g);
@@ -118,6 +121,7 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
+		world = new World("res/world1.txt");
 		player = new Player(this,50,50, startVec , 500);
 		o = new Obstacle(this, 200, 150, 50,50);
 		o2 = new Obstacle(this, 270, 130, 50, 50);
