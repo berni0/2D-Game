@@ -50,8 +50,8 @@ public class CollisionHandler {;
 			}
 			if (mobileRect.getMinY() <= staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
 				if (c.getVelocity().getY() < 0)
-					c.getVelocity().setY(-0.1);
-				c.moveTo(c.getX(), staticRect.getMaxY());
+					c.getVelocity().setY(0);
+				c.moveTo(c.getX(), staticRect.getMaxY() - 0.1);
 				c.setHasGround(true);
 				c.setJumping(false);
 				if (c.isScheduledJump()) {
