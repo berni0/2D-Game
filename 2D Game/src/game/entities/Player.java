@@ -29,7 +29,7 @@ public class Player extends Creature {
 	}
 
 	public void jump() {
-		if (!jumping) {
+		if (!jumping && hasGround()) {
 			vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
 			jumping = true;
 		} else if (!scheduledJump && vel.getY() < 0) {
