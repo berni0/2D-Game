@@ -23,7 +23,7 @@ public class Game implements Runnable{
 	
 	int x = 0;
 	
-	private int width, height;
+	private static int width, height;
 	private boolean running = false;
 	private int tps, fps;
 	
@@ -46,8 +46,8 @@ public class Game implements Runnable{
 	private BufferedImage backgroungImg;
 	
 	public Game(int width, int height, int fps, int tps){
-		this.height = height;
-		this.width = width;
+		Game.height = height;
+		Game.width = width;
 		this.fps = fps;
 		this.tps = tps;
 	}
@@ -98,7 +98,7 @@ public class Game implements Runnable{
 		}
 		
 		g = bs.getDrawGraphics();
-		g.clearRect(0,0, this.width, this.height);
+		g.clearRect(0,0, Game.width, Game.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 		
 		player.render(g);
@@ -111,7 +111,7 @@ public class Game implements Runnable{
 	}
 	
 	private void init(){
-		display = new GUI(this.width, this.height);
+		display = new GUI(Game.width, Game.height);
 		key = new KeyManager();
 		
 		display.getFrame().addKeyListener(key);
@@ -156,20 +156,20 @@ public class Game implements Runnable{
 		this.key = key;
 	}
 
-	public int getWidth() {
+	public static int getWidth() {
 		return width;
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		Game.width = width;
 	}
 
-	public int getHeight() {
+	public static int getHeight() {
 		return height;
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		Game.height = height;
 	}
 	
 	

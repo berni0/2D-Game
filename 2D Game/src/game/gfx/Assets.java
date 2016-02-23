@@ -11,6 +11,8 @@ public class Assets {
 	
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/SpriteSheet.png"));
+		SpriteSheet terrain = new SpriteSheet(ImageLoader.loadImage("/terrain.png"));
+		grass = terrain.crop(0, 0, width, height);
 		player = sheet.crop(0, 0, width, height);
 		playerStand = new BufferedImage[1];
 		playerStand[0] = sheet.crop(32, 0, width, height);
