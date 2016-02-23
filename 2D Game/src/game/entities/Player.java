@@ -33,7 +33,7 @@ public class Player extends Creature {
 			vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
 			jumping = true;
 		} else if (!scheduledJump && vel.getY() < 0) {
-			scheduledJump = true;
+			//scheduledJump = true;
 		}
 	}
 	
