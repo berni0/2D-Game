@@ -124,7 +124,7 @@ public class Game implements Runnable{
 		ground = new Obstacle(this, -50, 10, 3000, 30);
 		
 		Entity[] ent = {o, ground, o2, player};
-		cH = new CollisionHandler(this, ent);
+		cH = new CollisionHandler(ent);
 		
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	}

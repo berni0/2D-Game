@@ -1,18 +1,14 @@
 package game.utilities;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import game.entities.Creature;
 import game.entities.Entity;
-import game.main.Game;
 
-public class CollisionHandler {
-	private Game game;
+public class CollisionHandler {;
 	private Entity[] entities;
 
-	public CollisionHandler(Game game, Entity[] entities) {
-		this.game = game;
+	public CollisionHandler(Entity[] entities) {
 		this.entities = entities;
 	}
 
