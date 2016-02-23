@@ -16,8 +16,8 @@ import game.utilities.Vector2D;
 
 public class Game implements Runnable{
 	
-	public static Vector2D G = new Vector2D(0.5, 270, false);
-	public static Vector2D F = new Vector2D(1.0, 180, false);
+	public static Vector2D G = new Vector2D(2.5, 270, false);
+	public static Vector2D F = new Vector2D(1.5, 180, false);
 	public static int topBarHeight = 22;
 	public static Vector2D startVec = new Vector2D(0, 0, false);
 	
@@ -35,6 +35,7 @@ public class Game implements Runnable{
 	private Player player;
 	public Obstacle o;
 	public Obstacle o2;
+	public Obstacle ground;
 	
 	private CollisionHandler cH;
 	
@@ -103,6 +104,7 @@ public class Game implements Runnable{
 		player.render(g);
 		o.render(g);
 		o2.render(g);
+		ground.render(g);
 		
 		bs.show();
 		g.dispose();
@@ -116,11 +118,12 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
-		player = new Player(this,50,50, startVec , 200);
-		o = new Obstacle(this, 200, 300, 50,50);
-		o2 = new Obstacle(this, 270, 280, 50, 50);
+		player = new Player(this,50,50, startVec , 500);
+		o = new Obstacle(this, 200, 150, 50,50);
+		o2 = new Obstacle(this, 270, 130, 50, 50);
+		ground = new Obstacle(this, -50, 10, 3000, 30);
 		
-		Entity[] ent = {player, o, o2};
+		Entity[] ent = {o, o2, ground, player};
 		cH = new CollisionHandler(this, ent);
 		
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");

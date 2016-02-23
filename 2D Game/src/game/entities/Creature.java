@@ -5,17 +5,48 @@ import game.utilities.Vector2D;
 
 public abstract class Creature extends Entity{
 
+	private final int jumpHeight;
+	private double maxSpeedXDir = 110;
+	private boolean hasGround = false;
+	
+	public boolean hasGround() {
+		return hasGround;
+	}
+
+	public void setHasGround(boolean hasGround) {
+		this.hasGround = hasGround;
+	}
+
+
 	protected Game game;
 	protected Vector2D vel;
 	protected Vector2D directionChange = new Vector2D(0, 0, true);
+	protected boolean jumping = false, scheduledJump = false;
 
-	public Creature(Game g, double x, double y, Vector2D vel, int width, int height) {
+	
+	public boolean isScheduledJump() {
+		return scheduledJump;
+	}
+
+	public void setScheduledJump(boolean scheduledJump) {
+		this.scheduledJump = scheduledJump;
+	}
+
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+
+	public Creature(Game g, double x, double y, Vector2D vel, int width, int height, int jumpHeight) {
 		super(x, y, width, height);
 		this.vel = vel;
 		this.game = g;
+		this.jumpHeight = jumpHeight;
 	}
 	
-
 	public void moveTo(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -32,6 +63,16 @@ public abstract class Creature extends Entity{
 
 	public void setVelocity(Vector2D vel) {
 		this.vel = vel;
+	}
+	
+
+	public void jump() {
+		if (!jumping) {
+			vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
+			jumping = true;
+		} else if (!scheduledJump && vel.getY() < 0) {
+			scheduledJump = true;
+		}
 	}
 	
 }

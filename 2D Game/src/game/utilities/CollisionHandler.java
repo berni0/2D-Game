@@ -28,34 +28,47 @@ public class CollisionHandler {
 
 	private void checkCollision(Entity e1, Entity e2) {
 		// TODO Auto-generated method stub
-		Rectangle r = e1.getBounds().intersection(e2.getBounds());
-		if (!r.isEmpty()) {
-			Rectangle staticRect;
-			Rectangle mobileRect;
-			Creature c;
-			Point[] corners;
-			if (e1.isStatic()) {
-				staticRect = e1.getBounds();
-				mobileRect = e2.getBounds();
-				c = (Creature) e2;
-			} else {
-				staticRect = e2.getBounds();
-				mobileRect = e1.getBounds();
-				c = (Creature) e1;
-			}
-			if (mobileRect.getMinY() < staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
-				c.getVelocity().setY(0);
+		Rectangle staticRect;
+		Rectangle mobileRect;
+		Creature c;
+		if (e1.isStatic()) {
+			staticRect = e1.getBounds();
+			mobileRect = e2.getBounds();
+			c = (Creature) e2;
+		} else {
+			staticRect = e2.getBounds();
+			mobileRect = e1.getBounds();
+			c = (Creature) e1;
+		}
+		if (e1.getBounds().intersects(e2.getBounds())) {
+			if (mobileRect.getMinY() <= staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
+				if (c.getVelocity().getY() < 0)
+					c.getVelocity().setY(0);
 				c.moveTo(c.getX(), staticRect.getMaxY());
-			} else if(mobileRect.getMaxY() > staticRect.getMinY() && mobileRect.getMaxY() < staticRect.getMinY() + 5){
+				c.setHasGround(true);
+				c.setJumping(false);
+				if (c.isScheduledJump()) {
+					c.setScheduledJump(false);
+					c.getVelocity().setY(0);
+					c.jump();
+				}
+			} else
+				if (mobileRect.getMaxY() >= staticRect.getMinY() && mobileRect.getMaxY() < staticRect.getMinY() + 5) {
 				c.getVelocity().setY(0);
-				c.moveTo(c.getX(), staticRect.getMinY()-c.getHeight());
-			} else if(mobileRect.getMinX() < staticRect.getMaxX() && mobileRect.getMinX() > staticRect.getMaxX() - 5){
+				c.moveTo(c.getX(), staticRect.getMinY() - c.getHeight());
+				if (c.getVelocity().getY() > 0)
+					c.getVelocity().setY(0);
+			} else if (mobileRect.getMinX() <= staticRect.getMaxX()
+					&& mobileRect.getMinX() > staticRect.getMaxX() - 5) {
 				c.getVelocity().setX(0);
-				c.moveTo(staticRect.getMaxX(), c.getY());
-			} else if(mobileRect.getMaxX() > staticRect.getMinX() && mobileRect.getMaxX() < staticRect.getMinX() + 5){
+				c.moveTo(staticRect.getMaxX() - 5, c.getY());
+			} else
+				if (mobileRect.getMaxX() >= staticRect.getMinX() && mobileRect.getMaxX() < staticRect.getMinX() + 5) {
 				c.getVelocity().setX(0);
-				c.moveTo(staticRect.getMinX() - c.getWidth(), c.getY());
+				c.moveTo(staticRect.getMinX() + 5 - c.getWidth(), c.getY());
 			}
+		} else {
+			c.setHasGround(false);
 		}
 	}
 
