@@ -3,11 +3,9 @@ package game.graphics;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 
-import game.entities.Entity;
 
 public class GUI {
 	private JFrame frame;
@@ -15,7 +13,6 @@ public class GUI {
 	private int width, height;
 	private Dimension d;
 	private Graphics g;
-	private ImagePanel iPanel;
 	
 	public GUI(int width, int height) {
 		this.width = width;
