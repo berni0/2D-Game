@@ -2,16 +2,11 @@ package game.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
-import game.gfx.ImageLoader;
-import game.main.Game;
 
 public abstract class Entity {
 
 	protected double x, y;
 	protected int width, height;
-	protected BufferedImage bImg;
 	protected boolean isStatic;
 
 	public boolean isStatic() {
@@ -33,13 +28,6 @@ public abstract class Entity {
 
 	public abstract void render(Graphics g);
 
-	public BufferedImage getImg() {
-		return bImg;
-	}
-
-	public void loadImage(String imagePath) {
-		bImg = ImageLoader.loadImage(imagePath);
-	}
 
 	public double getX() {
 		return x;

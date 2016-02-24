@@ -16,13 +16,11 @@ public class GUI {
 	private Dimension d;
 	private Graphics g;
 	private ImagePanel iPanel;
-	private CopyOnWriteArrayList<ImageLabel> objectList;
-
+	
 	public GUI(int width, int height) {
 		this.width = width;
 		this.height = height;
 
-		objectList = new CopyOnWriteArrayList<ImageLabel>();
 		initFrame();
 	}
 
@@ -59,29 +57,5 @@ public class GUI {
 		return frame;
 	}
 
-	public void updatePositions() {
-		for (ImageLabel o : objectList) {
-			o.setLocation();
-		}
-	}
-
-	public void addObjectToScreen(Entity pO) {
-		ImageLabel iL = new ImageLabel(pO, this);
-		objectList.add(iL);
-
-		iL.setLocation();
-		iL.setOpaque(true);
-
-		iPanel.add(iL);
-	}
-
-	public void removeObject(Entity pO) {
-		for (ImageLabel i : objectList) {
-			if (i.getEntity() == pO) {
-				i.setVisible(false);
-				objectList.remove(i);
-			}
-		}
-	}
 
 }

@@ -107,7 +107,7 @@ public class Game implements Runnable{
 		player.render(g);
 		o.render(g);
 		o2.render(g);
-		ground.render(g);
+		//ground.render(g);
 		
 		bs.show();
 		g.dispose();
@@ -125,7 +125,7 @@ public class Game implements Runnable{
 		player = new Player(this,50,50, startVec , 500);
 		o = new Obstacle(this, 200, 150, 50,50);
 		o2 = new Obstacle(this, 270, 130, 50, 50);
-		ground = new Obstacle(this, -50, 10, 3000, 30);
+		ground = new Obstacle(this, -50, 0, 3000, 32);
 		
 		Entity[] ent = {o, ground, o2, player};
 		cH = new CollisionHandler(ent);
