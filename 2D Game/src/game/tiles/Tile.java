@@ -3,6 +3,8 @@ package game.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import game.main.Game;
+
 
 public class Tile {
 		
@@ -31,7 +33,7 @@ public class Tile {
 		}
 		
 		public void render(Graphics g, int x, int y){
-			g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
+			g.drawImage(texture, x, Game.transformY(y, TILEHEIGHT), TILEWIDTH, TILEHEIGHT, null);
 		}
 		
 		public boolean isSolid(){

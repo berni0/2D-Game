@@ -5,7 +5,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 import game.entities.Entity;
 import game.entities.Obstacle;
@@ -24,10 +23,15 @@ public class Game implements Runnable{
 	public static Vector2D F = new Vector2D(1.5, 180, false);
 	public static int topBarHeight = 25;
 	public static Vector2D startVec = new Vector2D(0, 0, false);
+	public static int GameHeight = 600;
+	
+	public static int transformY(double coordinate, int height){
+		return (int)(GameHeight - topBarHeight - coordinate - height);
+	}
 	
 	int x = 0;
 	
-	private  int width, height;
+	private int width, height;
 	private boolean running = false;
 	private int tps, fps;
 	
@@ -123,10 +127,10 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
-		world = new World("res/world1.txt", this);
+		world = new World("res/world2.txt");
 		player = new Player(this,world.getSpawnX(),world.getSpawnY(), startVec , 500);
-		o = new Obstacle(this, 200, 150, 50,50);
-		o2 = new Obstacle(this, 270, 130, 50, 50);
+		o = new Obstacle(200, 150, 50,50);
+		o2 = new Obstacle(270, 130, 50, 50);
 //		ground = new Obstacle(this, -50, 0, 3000, 32);
 		
 		Entity[] test = world.getObstacles();

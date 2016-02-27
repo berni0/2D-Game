@@ -3,33 +3,30 @@ package game.worlds;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import game.entities.TileObstacle;
-import game.main.Game;
+import game.entities.Obstacle;
 import game.tiles.Tile;
 import game.utilities.worldStringReader;
 
 public class World {
 		
-	private Game g;
 	private int width, height;
 	private int spawnX, spawnY;
 	private int[][] tilePosition;
-	private ArrayList<TileObstacle> tileObstacles = new ArrayList<TileObstacle>();
+	private ArrayList<Obstacle> tileObstacles = new ArrayList<Obstacle>();
 	
-	public World(String path, Game g){
-		this.g = g;
+	public World(String path){
 		loadWorld(path);
 		for(int i = 0; i < tilePosition.length; i++){
 			for(int j = 0; j < tilePosition[i].length; j++){
 				if (getTile(i,j).isSolid()){
-					tileObstacles.add(new TileObstacle(g, i*Tile.TILEWIDTH, j*Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT));
+					tileObstacles.add(new Obstacle(i*Tile.TILEWIDTH, j*Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT));
 				}
 			}
 		}
 	}
 	
-	public TileObstacle[] getObstacles(){
-		TileObstacle o[] = new TileObstacle[tileObstacles.size()];
+	public Obstacle[] getObstacles(){
+		Obstacle o[] = new Obstacle[tileObstacles.size()];
 		return tileObstacles.toArray(o);
 	}
 	
