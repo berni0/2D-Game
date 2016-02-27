@@ -103,7 +103,7 @@ public class Game implements Runnable{
 		g.clearRect(0,0, this.width, this.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 		
-		world.reder(g);
+		world.render(g);
 		player.render(g);
 		o.render(g);
 		o2.render(g);
