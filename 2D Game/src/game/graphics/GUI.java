@@ -2,7 +2,6 @@ package game.graphics;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
@@ -12,7 +11,6 @@ public class GUI {
 	private Canvas canvas;
 	private int width, height;
 	private Dimension d;
-	private Graphics g;
 	
 	public GUI(int width, int height) {
 		this.width = width;
@@ -29,10 +27,8 @@ public class GUI {
 		canvas.setMaximumSize(d);
 		canvas.setMinimumSize(d);
 
-		g = canvas.getGraphics();
-
 		frame.add(canvas);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(d);
 		frame.setMaximumSize(d);
 		frame.setMinimumSize(d);

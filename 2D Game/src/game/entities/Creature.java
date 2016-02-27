@@ -6,7 +6,6 @@ import game.utilities.Vector2D;
 public abstract class Creature extends Entity{
 
 	private final int jumpHeight;
-	private double maxSpeedXDir = 110;
 	private boolean hasGround = false;
 	
 	public boolean hasGround() {

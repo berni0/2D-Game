@@ -38,8 +38,8 @@ public class World {
 		String[] worldData = file.split("\\s+");
 		width = worldStringReader.praseInt(worldData[0]);
 		height = worldStringReader.praseInt(worldData[1]);
-		spawnX = worldStringReader.praseInt(worldData[2]);
-		spawnY = worldStringReader.praseInt(worldData[3]);
+		setSpawnX(worldStringReader.praseInt(worldData[2]));
+		setSpawnY(worldStringReader.praseInt(worldData[3]));
 		
 		tilePosition = new int[width][height];
 
@@ -48,5 +48,21 @@ public class World {
 					tilePosition[x][y] = worldStringReader.praseInt(worldData[x + y * width + 4]);
 				}
 			}
+	}
+
+	public int getSpawnX() {
+		return spawnX;
+	}
+
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+
+	public int getSpawnY() {
+		return spawnY;
+	}
+
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
 	}
 }

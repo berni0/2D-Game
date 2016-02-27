@@ -3,7 +3,6 @@ package game.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import game.main.Game;
 
 public class Tile {
 		

@@ -35,9 +35,9 @@ public class Game implements Runnable{
 	
 	private Player player;
 	private World world;
-	public Obstacle o;
-	public Obstacle o2;
-	public Obstacle ground;
+	private Obstacle o;
+	private Obstacle o2;
+	private Obstacle ground;
 	
 	private CollisionHandler cH;
 	
@@ -122,7 +122,7 @@ public class Game implements Runnable{
 		Assets.init();
 		
 		world = new World("res/world1.txt");
-		player = new Player(this,50,50, startVec , 500);
+		player = new Player(this,world.getSpawnX(),world.getSpawnY(), startVec , 500);
 		o = new Obstacle(this, 200, 150, 50,50);
 		o2 = new Obstacle(this, 270, 130, 50, 50);
 		ground = new Obstacle(this, -50, 0, 3000, 32);
