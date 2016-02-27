@@ -35,9 +35,9 @@ public class Game implements Runnable{
 	
 	private Player player;
 	private World world;
-	public Obstacle o;
-	public Obstacle o2;
-	public Obstacle ground;
+	private Obstacle o;
+	private Obstacle o2;
+	private Obstacle ground;
 	
 	private CollisionHandler cH;
 	
