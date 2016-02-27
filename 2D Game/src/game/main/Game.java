@@ -3,6 +3,9 @@ package game.main;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import game.entities.Entity;
 import game.entities.Obstacle;
@@ -121,16 +124,24 @@ public class Game implements Runnable{
 		
 		Assets.init();
 		
-		world = new World("res/world1.txt");
+		world = new World("res/world1.txt", this);
 		player = new Player(this,world.getSpawnX(),world.getSpawnY(), startVec , 500);
 		o = new Obstacle(this, 200, 150, 50,50);
 		o2 = new Obstacle(this, 270, 130, 50, 50);
 		ground = new Obstacle(this, -50, 0, 3000, 32);
 		
+		Entity[] test = world.getObstacles();
 		Entity[] ent = {o, ground, o2, player};
+		
+		ArrayList<Entity> entities = new ArrayList<Entity>();
+		entities.addAll(Arrays.asList(ent));
+		entities.addAll(Arrays.asList(test));
+		
 		cH = new CollisionHandler(ent);
 		
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
+	
+		System.out.println(world.getObstacles().length);
 	}
 	
 	public synchronized void start(){
