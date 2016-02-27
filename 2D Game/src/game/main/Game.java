@@ -19,7 +19,7 @@ public class Game implements Runnable{
 	
 	public static Vector2D G = new Vector2D(2.5, 270, false);
 	public static Vector2D F = new Vector2D(1.5, 180, false);
-	public static int topBarHeight = 22;
+	public static int topBarHeight = 25;
 	public static Vector2D startVec = new Vector2D(0, 0, false);
 	
 	int x = 0;
