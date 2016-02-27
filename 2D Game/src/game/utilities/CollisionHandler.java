@@ -1,26 +1,27 @@
 package game.utilities;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import game.entities.Creature;
 import game.entities.Entity;
 
 public class CollisionHandler {;
-	private Entity[] entities;
+	private ArrayList<Entity> entities;
 
-	public CollisionHandler(Entity[] entities) {
+	public CollisionHandler(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
 
 	public void tick() {
-		boolean[] hasCollided = new boolean[entities.length];
+		boolean[] hasCollided = new boolean[entities.size()];
 //		for(int i = 0; i < hasCollided.length; i++){
 //			hasCollided[i] = false;
 //		}
-		for (int i = 0; i < entities.length; i++) {
-			for (int j = i + 1; j < entities.length; j++) {
-				if (!entities[i].isStatic() || !entities[j].isStatic()) {
-					if(checkCollision(entities[i], entities[j])){
+		for (int i = 0; i < entities.size(); i++) {
+			for (int j = i + 1; j < entities.size(); j++) {
+				if (!entities.get(i).isStatic() || !entities.get(j).isStatic()) {
+					if(checkCollision(entities.get(i), entities.get(j))){
 						hasCollided[i] = true;
 						hasCollided[j] = true;
 					}
@@ -28,8 +29,8 @@ public class CollisionHandler {;
 			}
 		}
 		for(int i = 0; i < hasCollided.length; i++){
-			if(!hasCollided[i] && !entities[i].isStatic()){
-				((Creature) entities[i]).setHasGround(false);
+			if(!hasCollided[i] && !entities.get(i).isStatic()){
+				((Creature) entities.get(i)).setHasGround(false);
 			}
 		}
 	}

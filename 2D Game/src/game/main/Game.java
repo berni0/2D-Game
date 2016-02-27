@@ -137,7 +137,7 @@ public class Game implements Runnable{
 		entities.addAll(Arrays.asList(ent));
 		entities.addAll(Arrays.asList(test));
 		
-		cH = new CollisionHandler(ent);
+		cH = new CollisionHandler(entities);
 		
 		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
 	
