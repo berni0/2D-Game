@@ -31,6 +31,6 @@ public class TileObstacle extends Entity {
 
 	@Override
 	public Rectangle getBounds(){
-		return new Rectangle((int)this.x, (int)(g.getHeight() - this.y - this.height - g.topBarHeight), width, height);
+		return new Rectangle((int)this.x, (int)(g.getHeight() - this.y - this.height - Game.topBarHeight), width, height);
 	}
 }
