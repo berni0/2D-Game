@@ -116,9 +116,9 @@ public class Player extends Creature {
 	}
 
 	@Override
-	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) this.x, Game.transformY(y, height), width, height, null);
-		g.drawRect((int) this.x + 5, Game.transformY(y, height), width - 10, height);
+	public void render(Graphics g, double offset) {
+		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset, Game.transformY(y, height), width, height, null);
+		g.drawRect((int) this.x + 5 - (int) offset, Game.transformY(y, height), width - 10, height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {

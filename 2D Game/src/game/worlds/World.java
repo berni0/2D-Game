@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.entities.Obstacle;
+import game.entities.Player;
 import game.tiles.Tile;
 import game.utilities.worldStringReader;
 
@@ -13,6 +14,19 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tilePosition;
 	private ArrayList<Obstacle> tileObstacles = new ArrayList<Obstacle>();
+	private double offset;
+	
+	public double getOffset() {
+		return offset;
+	}
+
+	public void setOffset(double offset) {
+		this.offset = offset;
+	}
+
+	public void addToOffset(double offset){
+		this.offset += offset;
+	}
 	
 	public World(String path){
 		loadWorld(path);
@@ -23,6 +37,7 @@ public class World {
 				}
 			}
 		}
+		offset = 0;
 	}
 	
 	public Obstacle[] getObstacles(){
@@ -38,16 +53,18 @@ public class World {
 		return t;
 	}
 	
-	public void tick(){}
+	public void tick(){
+		
+	}
 	
 	public void render(Graphics g){
 		for (int y = 0; y < height; y++ ){
 			for(int x = 0; x < width; x++){
-				getTile(x, y).render(g, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+				getTile(x, y).render(g, x*Tile.TILEWIDTH -(int) offset, y*Tile.TILEHEIGHT);
 			}
 		}
 		for(int i = 0; i < tileObstacles.size(); i++){
-			tileObstacles.get(i).render(g);
+			tileObstacles.get(i).render(g, offset);
 		}
 	}
 	
