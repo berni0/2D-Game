@@ -5,12 +5,9 @@ import java.awt.Graphics;
 import game.main.Game;
 
 public class Obstacle extends Entity {
-	
-	Game game;
 
-	public Obstacle(Game g, double x, double y, int width, int height) {
+	public Obstacle(double x, double y, int width, int height) {
 		super(x, y, width, height);
-		this.game = g;
 		isStatic = true;
 	}
 
@@ -20,8 +17,7 @@ public class Obstacle extends Entity {
 	}
 
 	@Override
-	public void render(Graphics g) {
-		g.drawRect((int)x, (int)(game.getHeight() - this.y - this.height - Game.topBarHeight) , width, height);
+	public void render(Graphics g, double offset) {
+		g.drawRect((int)x - (int) offset, Game.transformY(y, height) , width, height);
 	}
-
 }
