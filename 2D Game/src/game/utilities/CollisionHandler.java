@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import game.entities.Creature;
 import game.entities.Entity;
 
-public class CollisionHandler {;
+public class CollisionHandler {
+	;
 	private ArrayList<Entity> entities;
 
 	public CollisionHandler(ArrayList<Entity> entities) {
@@ -15,21 +16,21 @@ public class CollisionHandler {;
 
 	public void tick() {
 		boolean[] hasCollided = new boolean[entities.size()];
-//		for(int i = 0; i < hasCollided.length; i++){
-//			hasCollided[i] = false;
-//		}
+		// for(int i = 0; i < hasCollided.length; i++){
+		// hasCollided[i] = false;
+		// }
 		for (int i = 0; i < entities.size(); i++) {
 			for (int j = i + 1; j < entities.size(); j++) {
 				if (!entities.get(i).isStatic() || !entities.get(j).isStatic()) {
-					if(checkCollision(entities.get(i), entities.get(j))){
+					if (checkCollision(entities.get(i), entities.get(j))) {
 						hasCollided[i] = true;
 						hasCollided[j] = true;
 					}
 				}
 			}
 		}
-		for(int i = 0; i < hasCollided.length; i++){
-			if(!hasCollided[i] && !entities.get(i).isStatic()){
+		for (int i = 0; i < hasCollided.length; i++) {
+			if (!hasCollided[i] && !entities.get(i).isStatic()) {
 				((Creature) entities.get(i)).setHasGround(false);
 			}
 		}
@@ -50,16 +51,12 @@ public class CollisionHandler {;
 				c = (Creature) e1;
 			}
 			if (mobileRect.getMinY() <= staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
-				if (c.getVelocity().getY() < 0)
+				if (c.getVelocity().getY() < 0) {
 					c.getVelocity().setY(0);
-				c.moveTo(c.getX(), staticRect.getMaxY() - 0.1);
-				c.setHasGround(true);
-				c.setJumping(false);
-				if (c.isScheduledJump()) {
-					c.setScheduledJump(false);
-					c.getVelocity().setY(0);
-					c.jump();
+					c.setHasGround(true);
+					c.setJumping(false);
 				}
+				c.moveTo(c.getX(), staticRect.getMaxY() - 0.1);
 			} else if (mobileRect.getMaxY() >= staticRect.getMinY()
 					&& mobileRect.getMaxY() < staticRect.getMinY() + 5) {
 				c.moveTo(c.getX(), staticRect.getMinY() - c.getHeight());
