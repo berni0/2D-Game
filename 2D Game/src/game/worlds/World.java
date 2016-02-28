@@ -63,9 +63,10 @@ public class World {
 				getTile(x, y).render(g, x*Tile.TILEWIDTH -(int) offset, y*Tile.TILEHEIGHT);
 			}
 		}
+		/*
 		for(int i = 0; i < tileObstacles.size(); i++){
 			tileObstacles.get(i).render(g, offset);
-		}
+		}*/
 	}
 	
 	public void loadWorld(String path){

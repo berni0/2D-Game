@@ -13,6 +13,7 @@ public class Tile {
 		public static Tile[] idList = new Tile[256];
 		public static Tile airTile = new AirTile(0);
 		public static Tile grassTile = new GrassTile(1);
+		public static Tile dirtTile = new DirtTile(2);
 		
 		//CLASS
 		
