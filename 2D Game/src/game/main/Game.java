@@ -145,7 +145,7 @@ public class Game implements Runnable {
 
 		cH = new CollisionHandler(entities);
 
-		backgroungImg = ImageLoader.loadImage("/Landschaft_1.jpg");
+		backgroungImg = ImageLoader.loadImage("/Background.png");
 
 		System.out.println(world.getObstacles().length);
 	}
