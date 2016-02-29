@@ -110,9 +110,15 @@ public class Player extends Creature {
 			moveLeft();
 		} else if (game.getKey().right) {
 			moveRight();
-		} else {
+		} else if(game.getKey().goToSpawn){
+			this.setX(game.world.getSpawnX());
+			this.setY(game.world.getSpawnY());
+			vel.setX(0);
+			vel.setY(0);
+			game.world.setOffset(0);
+		}else{
 			stopX();
-		}
+		} 
 	}
 
 	@Override

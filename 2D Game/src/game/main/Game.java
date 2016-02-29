@@ -40,7 +40,7 @@ public class Game implements Runnable {
 	private Graphics g;
 
 	private Player player;
-	private World world;
+	public World world;
 	private Obstacle leftBoundary;
 
 	private CollisionHandler cH;
