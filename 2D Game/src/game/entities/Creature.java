@@ -1,6 +1,5 @@
 package game.entities;
 
-import game.main.Game;
 import game.utilities.Vector2D;
 
 public abstract class Creature extends Entity{
@@ -71,5 +70,7 @@ public abstract class Creature extends Entity{
 			scheduledJump = true;
 		}
 	}
+	
+	public abstract void collision(Creature c);
 	
 }

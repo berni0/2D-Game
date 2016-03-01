@@ -28,7 +28,24 @@ public class Goomba extends Creature {
 	@Override
 	public void render(Graphics g, int gameHeight, double offset) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void collision(Creature c) {
+		// TODO Auto-generated method stub
+		switch (c.getClass().getName()) {
+		case "game.entities.Goomba":
+			vel.setX(-vel.getX());
+			break;
+		case "game.entities.Player":
+			System.out.println("I kill you");
+			break;
+		default: System.out.println("class unknown");
+			break;
+			
+		}
+		c.collision(this);
 	}
 
 }

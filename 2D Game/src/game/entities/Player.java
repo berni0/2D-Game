@@ -112,21 +112,23 @@ public class Player extends Creature {
 			moveLeft();
 		} else if (game.getKey().right) {
 			moveRight();
-		} else if(game.getKey().goToSpawn){
+		} else if (game.getKey().goToSpawn) {
 			this.setX(game.world.getSpawnX());
 			this.setY(game.world.getSpawnY());
 			vel.setX(0);
 			vel.setY(0);
 			game.world.setOffset(0);
-		}else{
+		} else {
 			stopX();
-		} 
+		}
 	}
 
 	@Override
 	public void render(Graphics g, int gameHeight, double offset) {
-		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
-		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10, height);
+		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset,
+				(int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
+		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10,
+				height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
@@ -148,5 +150,23 @@ public class Player extends Creature {
 	 * false; if (scheduledJump) { scheduledJump = false; vel.setY(0); jump();
 	 * return false; } return true; } else { return false; } }
 	 */
+
+	@Override
+	public void collision(Creature c) {
+		// TODO Auto-generated method stub
+		switch (c.getClass().getName()) {
+		case "game.entities.Goomba":
+			System.out.println("I died");
+			break;
+		case "game.entities.Player":
+			System.out.println("How the f*** did you manage to put two players into one game??");
+			break;
+		default:
+			System.out.println("class unknown");
+			break;
+
+		}
+		c.collision(this);
+	}
 
 }
