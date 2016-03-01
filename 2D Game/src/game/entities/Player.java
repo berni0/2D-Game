@@ -152,10 +152,11 @@ public class Player extends Creature {
 	 */
 
 	@Override
-	public void collision(Creature c) {
+	public void collision(Creature c, boolean invokedByCreature) {
 		// TODO Auto-generated method stub
 		switch (c.getClass().getName()) {
 		case "game.entities.Goomba":
+
 			System.out.println("I died");
 			break;
 		case "game.entities.Player":
@@ -166,7 +167,9 @@ public class Player extends Creature {
 			break;
 
 		}
-		c.collision(this);
+		if (!invokedByCreature) {
+			c.collision(this, true);
+		}
 	}
 
 }

@@ -8,7 +8,7 @@ public class GoombaTestMain {
 		// TODO Auto-generated method stub
 		Goomba g = new Goomba(1, 2);
 		System.out.println(g.getClass().getName());
-		g.collision(g);
+		g.collision(g, false);
 	}
 
 }

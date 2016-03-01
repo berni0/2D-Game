@@ -22,7 +22,7 @@ public class CollisionHandler {
 		for (int i = 0; i < entities.size(); i++) {
 			for (int j = i + 1; j < entities.size(); j++) {
 				if (!entities.get(i).isStatic() || !entities.get(j).isStatic()) {
-					if (checkCollision(entities.get(i), entities.get(j))) {
+						if (checkCollision(entities.get(i), entities.get(j))) {
 						hasCollided[i] = true;
 						hasCollided[j] = true;
 					}
@@ -45,10 +45,14 @@ public class CollisionHandler {
 				staticRect = e1.getBounds();
 				mobileRect = e2.getBounds();
 				c = (Creature) e2;
-			} else {
+			} else if(e2.isStatic()){
 				staticRect = e2.getBounds();
 				mobileRect = e1.getBounds();
 				c = (Creature) e1;
+			} else{
+				((Creature) e1).collision((Creature)e2, false);
+				return true;
+				
 			}
 			if (mobileRect.getMinY() <= staticRect.getMaxY() && mobileRect.getMinY() > staticRect.getMaxY() - 5) {
 				if (c.getVelocity().getY() < 0) {

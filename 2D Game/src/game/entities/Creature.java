@@ -71,6 +71,6 @@ public abstract class Creature extends Entity{
 		}
 	}
 	
-	public abstract void collision(Creature c);
+	public abstract void collision(Creature c, boolean invokedByCreature);
 	
 }
