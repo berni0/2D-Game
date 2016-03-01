@@ -20,4 +20,6 @@ public class Obstacle extends Entity {
 	public void render(Graphics g, double offset) {
 		g.drawRect((int)x - (int) offset, Game.transformY(y, height) , width, height);
 	}
+	
+	//Test
 }
