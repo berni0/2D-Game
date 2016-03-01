@@ -33,8 +33,8 @@ public class Tile {
 			
 		}
 		
-		public void render(Graphics g, int x, int y){
-			g.drawImage(texture, x, Game.transformY(y, TILEHEIGHT), TILEWIDTH, TILEHEIGHT, null);
+		public void render(Graphics g, int gameHeight, int x, int y){
+			g.drawImage(texture, x, (int) (gameHeight - Game.topBarHeight - TILEHEIGHT - y), TILEWIDTH, TILEHEIGHT, null);
 		}
 		
 		public boolean isSolid(){

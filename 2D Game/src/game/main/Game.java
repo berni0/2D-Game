@@ -23,11 +23,6 @@ public class Game implements Runnable {
 	public static Vector2D F = new Vector2D(1.5, 180, false);
 	public static int topBarHeight = 25;
 	public static Vector2D startVec = new Vector2D(0, 0, false);
-	public static int GameHeight = 600;
-
-	public static int transformY(double coordinate, int height) {
-		return (int) (GameHeight - topBarHeight - coordinate - height);
-	}
 
 	int x = 0;
 
@@ -113,10 +108,10 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, this.width, this.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 
-		world.render(g);
+		world.render(g, this.height);
 		double offset = world.getOffset();
-		player.render(g, offset);
-		leftBoundary.render(g, offset);
+		player.render(g, this.height, offset);
+		leftBoundary.render(g, this.height, offset);
 		// ground.render(g);
 
 		bs.show();

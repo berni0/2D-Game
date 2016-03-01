@@ -26,7 +26,7 @@ public abstract class Entity {
 
 	public abstract void tick();
 
-	public abstract void render(Graphics g, double offset);
+	public abstract void render(Graphics g, int gameHeight, double offset);
 
 
 	public double getX() {

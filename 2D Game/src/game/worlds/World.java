@@ -57,10 +57,10 @@ public class World {
 		
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics g, int gameHeight){
 		for (int y = 0; y < height; y++ ){
 			for(int x = 0; x < width; x++){
-				getTile(x, y).render(g, x*Tile.TILEWIDTH -(int) offset, y*Tile.TILEHEIGHT);
+				getTile(x, y).render(g, gameHeight, x*Tile.TILEWIDTH -(int) offset, y*Tile.TILEHEIGHT);
 			}
 		}
 		/*

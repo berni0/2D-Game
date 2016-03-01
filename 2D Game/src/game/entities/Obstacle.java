@@ -13,13 +13,13 @@ public class Obstacle extends Entity {
 
 	@Override
 	public void tick() {
-		
+
 	}
 
 	@Override
-	public void render(Graphics g, double offset) {
-		g.drawRect((int)x - (int) offset, Game.transformY(y, height) , width, height);
+	public void render(Graphics g, int gameHeight, double offset) {
+		g.drawRect((int) x - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width, height);
 	}
-	
-	//Test
+
+	// Test
 }
