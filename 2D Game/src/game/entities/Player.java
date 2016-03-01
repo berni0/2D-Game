@@ -14,6 +14,7 @@ public class Player extends Creature {
 	private final int jumpHeight;
 	private double maxSpeedXDir = 200;
 	private double maxSpeedYDir = 300;
+	private Game game;
 
 	private Animation animRight = new Animation(100, Assets.playerRight);
 	private Animation animLeft = new Animation(100, Assets.playerLeft);
@@ -22,9 +23,10 @@ public class Player extends Creature {
 	private Animation animJRight = new Animation(100, Assets.playerRight);
 
 	public Player(Game g, double x, double y, Vector2D vel, int jumpHeight) {
-		super(g, x, y, vel, 64, 64, jumpHeight);
+		super(x, y, vel, 64, 64, jumpHeight);
 		this.jumpHeight = jumpHeight;
 		isStatic = false;
+		this.game = g;
 	}
 
 	public void jump() {

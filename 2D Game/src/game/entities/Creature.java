@@ -17,7 +17,6 @@ public abstract class Creature extends Entity{
 	}
 
 
-	protected Game game;
 	protected Vector2D vel;
 	protected Vector2D directionChange = new Vector2D(0, 0, true);
 	protected boolean jumping = false, scheduledJump = false;
@@ -39,10 +38,9 @@ public abstract class Creature extends Entity{
 		this.jumping = jumping;
 	}
 
-	public Creature(Game g, double x, double y, Vector2D vel, int width, int height, int jumpHeight) {
+	public Creature(double x, double y, Vector2D vel, int width, int height, int jumpHeight) {
 		super(x, y, width, height);
 		this.vel = vel;
-		this.game = g;
 		this.jumpHeight = jumpHeight;
 	}
 	
