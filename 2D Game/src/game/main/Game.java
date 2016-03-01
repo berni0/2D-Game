@@ -142,7 +142,6 @@ public class Game implements Runnable {
 
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
-		System.out.println(world.getObstacles().length);
 	}
 
 	public synchronized void start() {
