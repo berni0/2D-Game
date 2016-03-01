@@ -11,6 +11,7 @@ import game.entities.Obstacle;
 import game.entities.Player;
 import game.gfx.Assets;
 import game.gfx.ImageLoader;
+import game.gfx.UserInterface;
 import game.graphics.GUI;
 import game.input.KeyManager;
 import game.utilities.CollisionHandler;
@@ -37,6 +38,7 @@ public class Game implements Runnable {
 	private Player player;
 	public World world;
 	private Obstacle leftBoundary;
+	private UserInterface UI;
 
 	private CollisionHandler cH;
 
@@ -109,6 +111,7 @@ public class Game implements Runnable {
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 
 		world.render(g, this.height);
+		UI.render(g);
 		double offset = world.getOffset();
 		player.render(g, this.height, offset);
 		leftBoundary.render(g, this.height, offset);
@@ -128,6 +131,8 @@ public class Game implements Runnable {
 
 		world = new World("res/world2.txt");
 		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
+		UI = new UserInterface(player);
+		
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);
 
