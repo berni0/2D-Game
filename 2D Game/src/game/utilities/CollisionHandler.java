@@ -42,9 +42,7 @@ public class CollisionHandler {
 
 	public void tick() {
 		boolean[] hasGround = new boolean[creatures.size()];
-		// for(int i = 0; i < hasCollided.length; i++){
-		// hasCollided[i] = false;
-		// }
+		
 		for (int i = 0; i < creatures.size(); i++) {
 			for (int j = 0; j < statics.size(); j++) {
 				if (checkCollision(creatures.get(i), statics.get(j))) {
@@ -77,41 +75,15 @@ public class CollisionHandler {
 			if (r1.getMinY() <= r2.getMaxY() && r1.getMinY() > r2.getMaxY() - 5) {
 				e1.collision(e2, false, 1);
 				hasGround = true;
-				/* implement into Player and Goomba:
-				if (c.getVelocity().getY() < 0) {
-					c.getVelocity().setY(0);
-					c.setHasGround(true);
-					c.setJumping(false);
-				}
-				c.moveTo(c.getX(), staticRect.getMaxY() - 0.1);
-				 */
 			} else if (r1.getMaxY() >= r2.getMinY()
 					&& r1.getMaxY() < r2.getMinY() + 5) {
 				e1.collision(e2, false, -1);
-				
-				/* implement into Player and Goomba:
-				c.moveTo(c.getX(), staticRect.getMinY() - c.getHeight());
-				if (c.getVelocity().getY() > 0)
-					c.getVelocity().setY(0);
-				*/				
-				
 			} else if (r1.getMinX() <= r2.getMaxX()
 					&& r1.getMinX() > r2.getMaxX() - 5) {
 				e1.collision(e2, false, 2);
-				
-				/*implement into Player and Goomba:
-				c.getVelocity().setX(0);
-				c.moveTo(staticRect.getMaxX() - 5, c.getY());
-				*/
-				
 			} else if (r1.getMaxX() >= r2.getMinX()
 					&& r1.getMaxX() < r2.getMinX() + 5) {
 				e1.collision(e2, false, -2);
-				
-				/* implement into Player and Goomba:
-				c.getVelocity().setX(0);
-				c.moveTo(staticRect.getMinX() + 5 - c.getWidth(), c.getY());
-				*/
 			}
 		}
 			return hasGround;
