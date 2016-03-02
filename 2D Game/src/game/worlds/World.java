@@ -29,7 +29,7 @@ public class World {
 	}
 	
 	public World(String path){
-		loadWorldFromFile(path);
+		loadRandomWorld();
 		createObstacles();
 		offset = 0;
 	}
