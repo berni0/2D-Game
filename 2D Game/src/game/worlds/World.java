@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.entities.Obstacle;
-import game.entities.Player;
 import game.tiles.Tile;
 import game.utilities.worldStringReader;
 
@@ -30,13 +29,7 @@ public class World {
 	
 	public World(String path){
 		loadWorld(path);
-		for(int i = 0; i < tilePosition.length; i++){
-			for(int j = 0; j < tilePosition[i].length; j++){
-				if (getTile(i,j).isSolid()){
-					tileObstacles.add(new Obstacle(i*Tile.TILEWIDTH, j*Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT));
-				}
-			}
-		}
+		createObstacles();
 		offset = 0;
 	}
 	
@@ -84,6 +77,82 @@ public class World {
 					tilePosition[x][y] = worldStringReader.praseInt(worldData[x + y * width + 4]);
 				}
 			}
+	}
+	
+	/**
+	 * creates obstacles out of the tiles, horizontally optimized
+	 */
+	public void createObstacles() {
+		boolean isObstacleInCreation = false;
+		double oX = 0, oY = 0;
+		int oWidth = 0;
+		int oHeight = 0;
+		
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){ //was: j < tilePosition.length;
+				if (getTile(j,i).isSolid()){
+					if(!isObstacleInCreation) {
+						oX = j*Tile.TILEWIDTH;
+						oY = i*Tile.TILEHEIGHT;
+						oWidth = Tile.TILEWIDTH;
+						oHeight = Tile.TILEHEIGHT;
+						isObstacleInCreation = true;
+					} else {
+						oWidth += Tile.TILEWIDTH;						
+					}
+				} else {					
+					if(isObstacleInCreation) {
+						tileObstacles.add(new Obstacle(oX, oY, oWidth, oHeight));
+						isObstacleInCreation = false;						
+					}
+				}
+			} 
+			if(isObstacleInCreation) {
+				tileObstacles.add(new Obstacle(oX, oY, oWidth, oHeight));
+				isObstacleInCreation = false;				
+			}
+		}
+		//System.out.println(tileObstacles.size());
+		optimizeObstaclesVertically();
+	}
+	
+	/**
+	 * optimizes obstacle list vertically
+	 */
+	public void optimizeObstaclesVertically() {
+		boolean changed = false;
+		if(!tileObstacles.isEmpty()) {
+			Obstacle comparedObstacle1, comparedObstacle2;
+			for(int i = 0; i < tileObstacles.size(); i++) {
+				comparedObstacle1 = tileObstacles.get(i);
+				for(int j = i + 1; j < tileObstacles.size(); j++) {
+					comparedObstacle2 = tileObstacles.get(j);
+					
+					if(comparedObstacle1.getX() == comparedObstacle2.getX()) {
+						if(comparedObstacle1.getWidth() == comparedObstacle2.getWidth()) {
+							if(comparedObstacle1.getY() + comparedObstacle1.getHeight() == comparedObstacle2.getY()) {
+								//obstacle1 above obstacle2
+								tileObstacles.add(new Obstacle(comparedObstacle1.getX(), comparedObstacle1.getY(),
+															   comparedObstacle1.getWidth(), comparedObstacle1.getHeight() + comparedObstacle2.getHeight()));
+								tileObstacles.remove(comparedObstacle1);
+								tileObstacles.remove(comparedObstacle2);
+								changed = true;
+							}
+							if(comparedObstacle1.getY() - comparedObstacle2.getHeight() == comparedObstacle2.getY()) {
+								//obstacle2 above obstacle1
+								tileObstacles.add(new Obstacle(comparedObstacle1.getX(), comparedObstacle2.getY(),
+										   comparedObstacle1.getWidth(), comparedObstacle1.getHeight() + comparedObstacle2.getHeight()));
+								tileObstacles.remove(comparedObstacle1);
+								tileObstacles.remove(comparedObstacle2);
+								changed = true;
+							}
+						}
+					}
+				}
+			}
+		}
+		//System.out.println(tileObstacles.size());
+		if(changed) optimizeObstaclesVertically();
 	}
 
 	public int getSpawnX() {
