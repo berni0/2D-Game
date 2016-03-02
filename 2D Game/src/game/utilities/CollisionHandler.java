@@ -73,17 +73,17 @@ public class CollisionHandler {
 			Rectangle r1 = e1.getBounds();
 			Rectangle r2 = e2.getBounds();
 			if (r1.getMinY() <= r2.getMaxY() && r1.getMinY() > r2.getMaxY() - 5) {
-				e1.collision(e2, false, 1);
+				e1.collision(e2, false, -1);
 				hasGround = true;
 			} else if (r1.getMaxY() >= r2.getMinY()
 					&& r1.getMaxY() < r2.getMinY() + 5) {
-				e1.collision(e2, false, -1);
+				e1.collision(e2, false, 1);
 			} else if (r1.getMinX() <= r2.getMaxX()
 					&& r1.getMinX() > r2.getMaxX() - 5) {
-				e1.collision(e2, false, 2);
+				e1.collision(e2, false, -2);
 			} else if (r1.getMaxX() >= r2.getMinX()
 					&& r1.getMaxX() < r2.getMinX() + 5) {
-				e1.collision(e2, false, -2);
+				e1.collision(e2, false, 2);
 			}
 		}
 			return hasGround;

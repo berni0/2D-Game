@@ -163,7 +163,7 @@ public class Player extends Creature {
 		switch (e.getClass().getName()) {
 		case "game.entities.Obstacle":
 			switch (direction) {
-			case 1:
+			case -1:
 				if (vel.getY() < 0) {
 					vel.setY(0);
 					setHasGround(true);
@@ -171,16 +171,16 @@ public class Player extends Creature {
 				}
 				moveTo(getX(), e.getBounds().getMaxY() - 0.1);
 				break;
-			case -1:
+			case 1:
 				moveTo(getX(), e.getBounds().getMinY() - getHeight());
 				if (vel.getY() > 0)
 					vel.setY(0);
 				break;
-			case 2:
+			case -2:
 				vel.setX(0);
 				moveTo(e.getBounds().getMaxX() - 5, getY());
 				break;
-			case -2:
+			case 2:
 				vel.setX(0);
 				moveTo(e.getBounds().getMinX() + 5 - getWidth(), getY());
 				break;
@@ -189,7 +189,7 @@ public class Player extends Creature {
 			}
 			break;
 		case "game.entities.Goomba":
-			if (direction == 1) {
+			if (direction == -1) {
 				forceJump();
 			} else {
 				System.out.println("I died");

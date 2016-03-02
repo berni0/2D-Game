@@ -44,7 +44,7 @@ public class Goomba extends Creature {
 		switch (e.getClass().getName()) {
 		case "game.entities.Obstacle":
 			switch (direction) {
-			case 1:
+			case -1:
 				if (vel.getY() < 0) {
 					vel.setY(0);
 					setHasGround(true);
@@ -52,16 +52,16 @@ public class Goomba extends Creature {
 				}
 				moveTo(getX(), e.getBounds().getMaxY() - 0.1);
 				break;
-			case -1:
+			case 1:
 				moveTo(getX(), e.getBounds().getMinY() - getHeight());
 				if (vel.getY() > 0)
 					vel.setY(0);
 				break;
-			case 2:
+			case -2:
 				vel.setX(0);
 				moveTo(e.getBounds().getMaxX(), getY());
 				break;
-			case -2:
+			case 2:
 				vel.setX(0);
 				moveTo(e.getBounds().getMinX() - getWidth(), getY());
 				break;
@@ -73,7 +73,11 @@ public class Goomba extends Creature {
 			vel.setX(-vel.getX());
 			break;
 		case "game.entities.Player":
-			System.out.println("I kill you");
+			if (direction == 1) {
+				System.out.println("Player killed goomba!");
+			} else {
+				System.out.println("I kill you");
+			}
 			break;
 		default:
 			System.out.println("class unknown");
