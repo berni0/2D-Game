@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import game.entities.Entity;
+import game.entities.Creature;
 import game.entities.Goomba;
 import game.entities.Obstacle;
 import game.entities.Player;
@@ -135,16 +136,19 @@ public class Game implements Runnable {
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
 		goomba1 = new Goomba(300, 100);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);
+		
+		Entity[] worldObstacles = world.getObstacles();
+		Creature[] creatures = {player, goomba1};
 
-		Entity[] test = world.getObstacles();
-		Entity[] ent = {player, leftBoundary, goomba1};
-
-		ArrayList<Entity> entities = new ArrayList<Entity>();
-		entities.addAll(Arrays.asList(ent));
-		entities.addAll(Arrays.asList(test));
-
-		cH = new CollisionHandler(entities);
-
+		ArrayList<Entity> entityList = new ArrayList<Entity>();
+		entityList.addAll(Arrays.asList(worldObstacles));
+		entityList.add(leftBoundary);
+		
+		ArrayList<Creature> creatureList = new ArrayList<Creature>();
+		creatureList.addAll(Arrays.asList(creatures));
+		
+		cH = new CollisionHandler(entityList, creatureList);
+		
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
 	}

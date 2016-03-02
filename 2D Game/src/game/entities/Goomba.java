@@ -39,9 +39,36 @@ public class Goomba extends Creature {
 	}
 
 	@Override
-	public void collision(Creature c, boolean invokedByCreature) {
+	public void collision(Entity e, boolean invokedByCreature, int direction) {
 		// TODO Auto-generated method stub
-		switch (c.getClass().getName()) {
+		switch (e.getClass().getName()) {
+		case "game.entities.Obstacle":
+			switch (direction) {
+			case 1:
+				if (vel.getY() < 0) {
+					vel.setY(0);
+					setHasGround(true);
+					setJumping(false);
+				}
+				moveTo(getX(), e.getBounds().getMaxY() - 0.1);
+				break;
+			case -1:
+				moveTo(getX(), e.getBounds().getMinY() - getHeight());
+				if (vel.getY() > 0)
+					vel.setY(0);
+				break;
+			case 2:
+				vel.setX(0);
+				moveTo(e.getBounds().getMaxX(), getY());
+				break;
+			case -2:
+				vel.setX(0);
+				moveTo(e.getBounds().getMinX() - getWidth(), getY());
+				break;
+			default:
+				System.out.println("Wie bist du hier hin gekommen?");
+			}
+			break;
 		case "game.entities.Goomba":
 			vel.setX(-vel.getX());
 			break;
@@ -53,8 +80,8 @@ public class Goomba extends Creature {
 			break;
 
 		}
-		if (!invokedByCreature) {
-			c.collision(this, true);
+		if (!invokedByCreature && e.getClass().getName() != "game.entities.Obstacle") {
+			((Creature) e).collision(this, true, -direction);
 		}
 	}
 

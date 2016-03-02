@@ -21,5 +21,13 @@ public class Obstacle extends Entity {
 		g.drawRect((int) x - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width, height);
 	}
 
+	@Override
+	public void collision(Entity e, boolean invokedByCreature, int direction) {
+		// TODO Auto-generated method stub
+		if(!invokedByCreature){
+			e.collision(this, true, -direction);
+		}
+	}
+
 	// Test
 }

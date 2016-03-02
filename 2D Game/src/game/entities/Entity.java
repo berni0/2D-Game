@@ -64,5 +64,7 @@ public abstract class Entity {
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, width, height);
 	}
+	
+	public abstract void collision(Entity e, boolean invokedByCreature, int direction); //1 = top, -1 = bottom; 2 = right, -2 = left
 
 }
