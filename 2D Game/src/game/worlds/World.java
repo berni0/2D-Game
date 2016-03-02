@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import game.entities.Obstacle;
 import game.tiles.Tile;
+import game.utilities.RandomWorldCreator;
 import game.utilities.worldStringReader;
 
 public class World {
@@ -28,7 +29,7 @@ public class World {
 	}
 	
 	public World(String path){
-		loadWorld(path);
+		loadWorldFromFile(path);
 		createObstacles();
 		offset = 0;
 	}
@@ -62,8 +63,16 @@ public class World {
 		}*/
 	}
 	
-	public void loadWorld(String path){
-		String file = worldStringReader.loadFileAsString(path);
+	public void loadWorldFromFile(String path){
+		loadWorld(worldStringReader.loadFileAsString(path));
+	}
+	
+	public void loadRandomWorld() {
+		loadWorld(RandomWorldCreator.createWorld(50, 20));
+	}
+	
+	public void loadWorld(String worldString) {
+		String file = worldString;
 		String[] worldData = file.split("\\s+");
 		width = worldStringReader.praseInt(worldData[0]);
 		height = worldStringReader.praseInt(worldData[1]);
