@@ -37,6 +37,12 @@ public class Player extends Creature {
 			// scheduledJump = true;
 		}
 	}
+	
+	public void forceJump(){
+		vel.setY(0);
+		vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
+		jumping = true;
+	}
 
 	@Override
 	public Rectangle getBounds() {
@@ -183,7 +189,11 @@ public class Player extends Creature {
 			}
 			break;
 		case "game.entities.Goomba":
-			System.out.println("I died");
+			if (direction == 1) {
+				forceJump();
+			} else {
+				System.out.println("I died");
+			}
 			break;
 		case "game.entities.Player":
 			System.out.println("How the f*** did you manage to put two players into one game??");
