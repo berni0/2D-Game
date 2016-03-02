@@ -15,7 +15,7 @@ public class Goomba extends Creature {
 	private Animation animation = new Animation(100, Assets.goombaWalk);
 
 	public Goomba(double x, double y) {
-		super(x, y, new Vector2D(-15, 0, true), width, height, 0);
+		super(x, y, new Vector2D(-25, 0, true), width, height, 0);
 		isStatic = false;
 		// TODO Auto-generated constructor stub
 	}
@@ -58,11 +58,11 @@ public class Goomba extends Creature {
 					vel.setY(0);
 				break;
 			case -2:
-				vel.setX(0);
+				vel.setX(-vel.getX());
 				moveTo(e.getBounds().getMaxX(), getY());
 				break;
 			case 2:
-				vel.setX(0);
+				vel.setX(-vel.getX());
 				moveTo(e.getBounds().getMinX() - getWidth(), getY());
 				break;
 			default:
