@@ -20,6 +20,15 @@ public class CollisionHandler {
 		statics.add(e);
 	}
 
+	public void removeStatic(Entity e){
+		for(int i = 0; i < statics.size(); i++){
+			if(statics.get(i) == e){
+				statics.remove(i);
+				return;
+			}
+		}
+	}
+	
 	public void addStatics(Entity[] e) {
 		statics.addAll(Arrays.asList(e));
 	}
@@ -30,6 +39,15 @@ public class CollisionHandler {
 
 	public void addCreature(Creature c) {
 		creatures.add(c);
+	}
+	
+	public void removeCreature(Entity e){
+		for(int i = 0; i < creatures.size(); i++){
+			if(creatures.get(i) == e){
+				creatures.remove(i);
+				return;
+			}
+		}
 	}
 
 	public void addCreatures(Creature[] c) {

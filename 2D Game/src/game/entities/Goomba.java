@@ -9,20 +9,43 @@ import game.utilities.Vector2D;
 
 public class Goomba extends Creature {
 
-	private static int width = 32;
-	private static int height = 32;
-
 	private Animation animation = new Animation(100, Assets.goombaWalk);
 
+	private boolean killed;
+	public boolean isKilled() {
+		return killed;
+	}
+
+	private int ticksSinceDeath = 0;
+	
 	public Goomba(double x, double y) {
-		super(x, y, new Vector2D(-25, 0, true), width, height, 0);
+		super(x, y, new Vector2D(-25, 0, true), 32, 32, 0);
 		isStatic = false;
+		killed = false;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+		if(killed){
+			if(ticksSinceDeath <= 2*32){
+				if(ticksSinceDeath % 2  == 0){
+					height--;
+				}
+				if(ticksSinceDeath % 3 == 0){
+					width++;
+					setX(getX()-0.5);
+				}
+				ticksSinceDeath++;
+			} else if (ticksSinceDeath <= 3*32){
+				height = 3;
+				ticksSinceDeath++;
+			} else {
+				height = 0;
+			}
+			return;
+		}
 		animation.tick();
 		if (!hasGround()) {
 			vel = Vector2D.add(vel, Game.G);
@@ -87,6 +110,7 @@ public class Goomba extends Creature {
 		case "game.entities.Player":
 			if (direction == 1) {
 				System.out.println("Player killed goomba!");
+				killed = true;
 			} else {
 				System.out.println("I kill you");
 			}

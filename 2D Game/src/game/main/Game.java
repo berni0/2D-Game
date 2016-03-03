@@ -101,6 +101,15 @@ public class Game implements Runnable {
 		}
 		goomba1.tick();
 		goomba2.tick();
+		
+//		This needs optimization to remove killed entites from the game entirely - possibly with a List
+		if(goomba1.isKilled()){
+			cH.removeCreature(goomba1);
+		}
+		
+		if(goomba2.isKilled()){
+			cH.removeCreature(goomba2);
+		}
 	}
 
 	private void render() {
@@ -152,6 +161,8 @@ public class Game implements Runnable {
 		creatureList.addAll(Arrays.asList(creatures));
 		
 		cH = new CollisionHandler(entityList, creatureList);
+		
+//		cH.removeCreature(goomba1);
 		
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
