@@ -65,6 +65,6 @@ public abstract class Entity {
 		return new Rectangle((int) x, (int) y, width, height);
 	}
 	
-	public abstract void collision(Entity e, boolean invokedByCreature, int direction); //1 = top, -1 = bottom; 2 = right, -2 = left
+	public abstract void collision(Entity e, boolean invokedByCreature, int direction); //1 = top, -1 = bottom; 2 = right, -2 = left; 0 = can not resolve direction
 
 }

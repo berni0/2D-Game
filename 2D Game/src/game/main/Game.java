@@ -40,6 +40,7 @@ public class Game implements Runnable {
 	public World world;
 	private Obstacle leftBoundary;
 	private Goomba goomba1;
+	private Goomba goomba2;
 
 	private CollisionHandler cH;
 
@@ -99,6 +100,7 @@ public class Game implements Runnable {
 			world.setOffset(0);
 		}
 		goomba1.tick();
+		goomba2.tick();
 	}
 
 	private void render() {
@@ -116,6 +118,7 @@ public class Game implements Runnable {
 		double offset = world.getOffset();
 		player.render(g, this.height, offset);
 		goomba1.render(g, this.height, offset);
+		goomba2.render(g, this.height, offset);
 //		leftBoundary.render(g, this.height, offset);
 		// ground.render(g);
 
@@ -134,11 +137,12 @@ public class Game implements Runnable {
 		world = new World("res/world2.txt");
 		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
-		goomba1 = new Goomba(300, 100);
+		goomba1 = new Goomba(310, 100);
+		goomba2 = new Goomba(300, 110);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);
 		
 		Entity[] worldObstacles = world.getObstacles();
-		Creature[] creatures = {player, goomba1};
+		Creature[] creatures = {player, goomba1, goomba2};
 
 		ArrayList<Entity> entityList = new ArrayList<Entity>();
 		entityList.addAll(Arrays.asList(worldObstacles));

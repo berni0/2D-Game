@@ -70,7 +70,19 @@ public class Goomba extends Creature {
 			}
 			break;
 		case "game.entities.Goomba":
-			vel.setX(-vel.getX());
+			switch(direction){
+			case -2: case 2:
+				vel.setX(-vel.getX());
+				break;
+			case -1:
+				if (vel.getY() < 0) {
+					vel.setY(0);
+					setHasGround(true);
+					setJumping(false);
+				}
+				moveTo(getX(), e.getBounds().getMaxY() - 0.1);
+				break;
+			}
 			break;
 		case "game.entities.Player":
 			if (direction == 1) {

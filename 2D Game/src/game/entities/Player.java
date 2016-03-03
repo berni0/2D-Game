@@ -184,6 +184,8 @@ public class Player extends Creature {
 				vel.setX(0);
 				moveTo(e.getBounds().getMinX() + 5 - getWidth(), getY());
 				break;
+			case 0:
+				System.out.println("PANIC");
 			default:
 				System.out.println("Wie bist du hier hin gekommen?");
 			}

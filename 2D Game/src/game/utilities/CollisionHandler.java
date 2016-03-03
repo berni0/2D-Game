@@ -84,6 +84,8 @@ public class CollisionHandler {
 			} else if (r1.getMaxX() >= r2.getMinX()
 					&& r1.getMaxX() < r2.getMinX() + 5) {
 				e1.collision(e2, false, 2);
+			} else {
+				e1.collision(e2, false, 0);
 			}
 		}
 			return hasGround;
