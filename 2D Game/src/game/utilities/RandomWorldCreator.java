@@ -18,41 +18,52 @@ public class RandomWorldCreator {
 	private static int airAfterStage = 5;
 	
 	//working variables
+	private static int[][] probabilityArray;
 	private static int columnNo = 0;
 	
-	public static String createWorld(int width, int height) {
+	public static String createWorld(int width, int height) {		
 		String worldString = "";
 		
 		worldString += (Integer.toString(width) + " " + Integer.toString(height) + "\n");
 		worldString += (Integer.toString(50) + " " + Integer.toString(50) + "\n");
 		
-		worldString += createBasis(width, height);
+		worldString += createLandscape(width, height);
 		
 		return worldString;
 	}
 	
-	private static String createBasis(int width, int height) {
-		String s = "";		
-		for(int i = 1; i <= height; i++) {
+	private static String createLandscape(int width, int height) {
+		probabilityArray = new int[width][height - 1];
+		
+		String s = "";
+		s += createGroundFloor(width);
+		for(int i = 2; i <= height; i++) {
 			s += createLine(width, i);
 		}
 		return s;
 	}
 	
+	private static String createGroundFloor(int length) {
+		String line = "";
+		
+		line += "1 1 1 1 1 ";
+		columnNo = 6;
+		while(columnNo <= length) {
+			line += (generateTile(true, length));
+		}			
+		
+		line += "\n";
+		return line;
+	}
+	
 	private static String createLine(int length, int lineNo) {
 		String line = "";
-		if(lineNo == 1) {
-			line += "1 1 1 1 1 ";
-			columnNo = 6;
-			while(columnNo <= length) {
-				line += (generateTile(true, length));
-			}			
-		} else {
-			columnNo = 1;
-			while(columnNo <= length) {
-				line += (generateTile(false, length));
-			}			
-		}
+		
+		columnNo = 1;
+		while(columnNo <= length) {
+			line += (generateTile(false, length));
+		}		
+		
 		line += "\n";
 		return line;
 	}
