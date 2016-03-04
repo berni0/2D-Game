@@ -14,6 +14,8 @@ import game.gfx.ImageLoader;
 import game.gfx.UserInterface;
 import game.graphics.GUI;
 import game.input.KeyManager;
+import game.states.GameState;
+import game.states.State;
 import game.utilities.CollisionHandler;
 import game.utilities.Vector2D;
 import game.worlds.World;
@@ -30,11 +32,15 @@ public class Game implements Runnable {
 	private int width, height;
 	private boolean running = false;
 	private int tps, fps;
+	private int ticks, frames;
 
 	private GUI display;
 	private BufferStrategy bs;
 	private Graphics g;
 
+	//States
+	private GameState gameState;
+	
 	private Player player;
 	public World world;
 	private Obstacle leftBoundary;
@@ -42,8 +48,6 @@ public class Game implements Runnable {
 
 	private CollisionHandler cH;
 	
-
-	private int ticks, frames;
 
 	private Thread thread;
 
@@ -107,6 +111,9 @@ public class Game implements Runnable {
 
 	private void tick() {
 		key.tick();
+		if(State.getState()!=null){
+			State.getState().render(g);
+		}
 		UI.tick();
 		player.tick();
 		cH.tick();
@@ -135,26 +142,31 @@ public class Game implements Runnable {
 		double offset = world.getOffset();
 		player.render(g, this.height, offset);
 		leftBoundary.render(g, this.height, offset);
-		// ground.render(g);
+		
+		if(State.getState()!=null){
+			State.getState().render(g);
+		}
+		
 
 		bs.show();
 		g.dispose();
 	}
 
 	private void init() {
+		Assets.init();
 		display = new GUI(this.width, this.height);
 		key = new KeyManager();
 
+		gameState = new GameState(this);
+		State.setState(gameState);
+		
 		display.getFrame().addKeyListener(key);
-
-		Assets.init();
 
 		world = new World("res/world2.txt");
 		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
 		UI = new UserInterface(player, this);
 		
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
-		// ground = new Obstacle(this, -50, 0, 3000, 32);
 
 		Entity[] test = world.getObstacles();
 		Entity[] ent = {player, leftBoundary};
