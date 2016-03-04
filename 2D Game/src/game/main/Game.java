@@ -126,7 +126,7 @@ public class Game implements Runnable {
 
 		Assets.init();
 
-		world = new World("res/world2.txt");
+		world = new World("res/world3.txt");
 		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);

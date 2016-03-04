@@ -5,15 +5,17 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage player,grass, air, dirt;
+	public static BufferedImage player,grass, air, dirt, coin;
 	public static BufferedImage playerRight[], playerLeft[], playerStand[];
 	
 	
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/SpriteSheet.png"));
 		SpriteSheet terrain = new SpriteSheet(ImageLoader.loadImage("/terrain.png"));
+		SpriteSheet object = new SpriteSheet(ImageLoader.loadImage("/coin.png"));
 		grass = terrain.crop(0, 0, width, height);
 		dirt = terrain.crop(32, 0, width, height);
+		coin = object.crop(0, 0, 22, 22);
 		player = sheet.crop(0, 0, width, height);
 		playerStand = new BufferedImage[1];
 		playerStand[0] = sheet.crop(32, 0, width, height);
