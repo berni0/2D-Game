@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 	
 	private boolean key[] = new boolean[256]; 
-	public boolean up, down, left, right, goToSpawn;
+	public boolean up, down, left, right, goToSpawn, toggleDebugUI;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -27,6 +27,7 @@ public class KeyManager implements KeyListener {
 		left 	= key[KeyEvent.VK_A];
 		right 	= key[KeyEvent.VK_D];
 		goToSpawn = key[KeyEvent.VK_Z];
+		toggleDebugUI = key[KeyEvent.VK_O];
 	}
 	
 }
