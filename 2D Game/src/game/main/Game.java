@@ -11,6 +11,7 @@ import game.entities.Obstacle;
 import game.entities.Player;
 import game.gfx.Assets;
 import game.gfx.ImageLoader;
+import game.gfx.UserInterface;
 import game.graphics.GUI;
 import game.input.KeyManager;
 import game.utilities.CollisionHandler;
@@ -37,8 +38,12 @@ public class Game implements Runnable {
 	private Player player;
 	public World world;
 	private Obstacle leftBoundary;
+	private UserInterface UI;
 
 	private CollisionHandler cH;
+	
+
+	private int ticks, frames;
 
 	private Thread thread;
 
@@ -63,23 +68,38 @@ public class Game implements Runnable {
 		double deltaT = 0;
 		long now;
 		long lastTime = System.nanoTime();
+		
+		int currentF=0, currentT=0;
+		long timer=0;
+		
+		
 
 		while (running) {
 			now = System.nanoTime();
 			deltaR += (now - lastTime) / timePerRender;
 			deltaT += (now - lastTime) / timePerTick;
+			timer += now-lastTime;
 			lastTime = now;
 
 			if (deltaR >= 1) {
 				render();
+				currentF++;
 				deltaR--;
 			}
 
 			if (deltaT >= 1) {
 				tick();
+				currentT++;
 				deltaT--;
 			}
-
+			
+			if(timer >= 1000000000){
+				frames = currentF;
+				ticks = currentT;
+				currentF = 0;
+				currentT = 0;
+				timer = 0;
+			}
 		}
 
 		stop();
@@ -87,8 +107,10 @@ public class Game implements Runnable {
 
 	private void tick() {
 		key.tick();
+		UI.tick();
 		player.tick();
 		cH.tick();
+
 		if (player.getX() > this.width / 2) {
 			world.setOffset(player.getX() - this.width / 2);
 		}
@@ -109,6 +131,7 @@ public class Game implements Runnable {
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 
 		world.render(g, this.height);
+		UI.render(g);
 		double offset = world.getOffset();
 		player.render(g, this.height, offset);
 		leftBoundary.render(g, this.height, offset);
@@ -128,6 +151,8 @@ public class Game implements Runnable {
 
 		world = new World("res/world2.txt");
 		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
+		UI = new UserInterface(player, this);
+		
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);
 
@@ -187,4 +212,20 @@ public class Game implements Runnable {
 		this.height = height;
 	}
 
+	public int getTicks() {
+		return ticks;
+	}
+
+	public void setTicks(int ticks) {
+		this.ticks = ticks;
+	}
+
+	public int getFrames() {
+		return frames;
+	}
+
+	public void setFrames(int frames) {
+		this.frames = frames;
+	}
+	
 }
