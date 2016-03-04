@@ -3,13 +3,16 @@ package game.utilities;
 public class RandomWorldCreator {
 	
 	//parameters
-	private static int basicProbability = 95; //between 0 and 100
+	private static boolean generateGaps = true;
 	
-	private static double factorAfterGap = 0.1;
-	private static double factorGrowthAfterGap = 2;
+	private static int gapProbability = 5; //between 0 and 100
+	
+	private static int minGapLength = 3;
+	private static int maxGapLength = 7;
+	private static int solidAfterGap = 2;
 	
 	//working variables
-	private static int latestProbability = basicProbability;
+	private static int columnNo = 0;
 	
 	public static String createWorld(int width, int height) {
 		String worldString = "";
@@ -30,43 +33,46 @@ public class RandomWorldCreator {
 		return s;
 	}
 	
-	private static String createLine(int length, int nr) {
+	private static String createLine(int length, int lineNo) {
 		String line = "";
-		if(nr == 1) {
+		if(lineNo == 1) {
 			line += "1 1 1 1 1 ";
-			for(int i = 6; i <= length; i++) {
-				line += (generateTile(latestProbability) + " ");
+			columnNo = 6;
+			while(columnNo <= length) {
+				line += (generateTile(true, length));
 			}			
 		} else {
-			for(int i = 1; i <= length; i++) {
-				line += (generateTile(0) + " ");
+			columnNo = 1;
+			while(columnNo <= length) {
+				line += (generateTile(false, length));
 			}			
 		}
 		line += "\n";
 		return line;
 	}
 	
-	private static String generateTile(int probability) {
-		String s;
-		int p = probability - (int) (Math.random() * 100);
-		if(p > 0) {
-			s = "1";
-			latestProbability = basicProbability;
-		}
-		else {
-			s = "0";
-			if(latestProbability < basicProbability) {
-				latestProbability = (int) (latestProbability * factorGrowthAfterGap);
-			} else {
-				if(latestProbability == basicProbability) {
-					latestProbability = (int) (basicProbability * factorAfterGap);
-				} else {
-					latestProbability = basicProbability;
+	private static String generateTile(boolean isGround, int length) {
+		String s = "";
+		if(isGround) {
+			int p = gapProbability - (int) (Math.random() * 100);
+			if(p > 0 && generateGaps) {
+				int gapLength = (int) Math.round((maxGapLength - minGapLength) * Math.random()) + minGapLength;
+				for(int i = 1; i <= gapLength && columnNo <= length; i++) {
+					s += "0 ";
+					columnNo++;
 				}
+				for(int j = 1; j <= solidAfterGap && columnNo <= length; j++) {
+					s += "1 ";
+					columnNo++;
+				}				
+			} else {
+				s = "1 ";
+				columnNo++;
 			}
+		} else {
+			s= "0 ";
+			columnNo++;
 		}
-		//System.out.println(s);
-		//System.out.println(latestProbability);
 		return s;
 	}
 }
