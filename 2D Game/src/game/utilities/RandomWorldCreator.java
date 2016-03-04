@@ -7,15 +7,17 @@ public class RandomWorldCreator {
 	private static boolean generateStages = true;	
 	
 	private static int gapProbability = 5; //between 0 and 100
-	private static int stageProbability = 5; //between 0 and 100
+	private static int stageProbability = 2; //between 0 and 100
 	
 	private static int minGapLength = 3;
 	private static int maxGapLength = 7;
 	private static int solidAfterGap = 2;
 	
 	private static int minStageLength = 2;
-	private static int maxStageLength = 5;
-	private static int airAfterStage = 5;
+	private static int maxStageLength = 4;
+	private static int airAfterStage = 10;
+	
+	private static int firstLevelWithStages = 4;
 	
 	//working variables
 	private static int columnNo = 0;
@@ -45,21 +47,21 @@ public class RandomWorldCreator {
 			line += "1 1 1 1 1 ";
 			columnNo = 6;
 			while(columnNo <= length) {
-				line += (generateTile(true, length));
+				line += (generateTile(lineNo, length));
 			}			
 		} else {
 			columnNo = 1;
 			while(columnNo <= length) {
-				line += (generateTile(false, length));
+				line += (generateTile(lineNo, length));
 			}			
 		}
 		line += "\n";
 		return line;
 	}
 	
-	private static String generateTile(boolean isGround, int length) {
+	private static String generateTile(int level, int length) {
 		String s = "";
-		if(isGround) {
+		if(level == 1) {
 			if(generateGaps) {
 				int p = gapProbability - (int) (Math.random() * 100);
 				if(p > 0) {
@@ -80,7 +82,7 @@ public class RandomWorldCreator {
 				s = "1 ";
 				columnNo++;
 			}
-		} else {
+		} else if(level >= firstLevelWithStages) {
 			if(generateStages) {
 				int p = stageProbability - (int) (Math.random() * 100);
 				if(p > 0) {
@@ -101,6 +103,9 @@ public class RandomWorldCreator {
 				s = "0 ";
 				columnNo++;
 			}
+		} else {
+			s = "0 ";
+			columnNo++;			
 		}
 		return s;
 	}
