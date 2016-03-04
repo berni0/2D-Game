@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import game.entities.Entity;
+import game.entities.Creature;
+import game.entities.Goomba;
 import game.entities.Obstacle;
 import game.entities.Player;
 import game.gfx.Assets;
@@ -38,6 +40,8 @@ public class Game implements Runnable {
 	private Player player;
 	public World world;
 	private Obstacle leftBoundary;
+	private Goomba goomba1;
+	private Goomba goomba2;
 	private UserInterface UI;
 
 	private CollisionHandler cH;
@@ -115,7 +119,18 @@ public class Game implements Runnable {
 			world.setOffset(player.getX() - this.width / 2);
 		}
 		else {
-			
+			world.setOffset(0);
+		}
+		goomba1.tick();
+		goomba2.tick();
+		
+//		This needs optimization to remove killed entites from the game entirely - possibly with a List
+		if(goomba1.isKilled()){
+			cH.removeCreature(goomba1);
+		}
+		
+		if(goomba2.isKilled()){
+			cH.removeCreature(goomba2);
 		}
 	}
 
@@ -134,7 +149,9 @@ public class Game implements Runnable {
 		UI.render(g);
 		double offset = world.getOffset();
 		player.render(g, this.height, offset);
-		leftBoundary.render(g, this.height, offset);
+		goomba1.render(g, this.height, offset);
+		goomba2.render(g, this.height, offset);
+//		leftBoundary.render(g, this.height, offset);
 		// ground.render(g);
 
 		bs.show();
@@ -154,17 +171,24 @@ public class Game implements Runnable {
 		UI = new UserInterface(player, this);
 		
 		leftBoundary = new Obstacle(-20, 0, 20, 800);
+		goomba1 = new Goomba(310, 100);
+		goomba2 = new Goomba(300, 110);
 		// ground = new Obstacle(this, -50, 0, 3000, 32);
+		
+		Entity[] worldObstacles = world.getObstacles();
+		Creature[] creatures = {player, goomba1, goomba2};
 
-		Entity[] test = world.getObstacles();
-		Entity[] ent = {player, leftBoundary};
-
-		ArrayList<Entity> entities = new ArrayList<Entity>();
-		entities.addAll(Arrays.asList(ent));
-		entities.addAll(Arrays.asList(test));
-
-		cH = new CollisionHandler(entities);
-
+		ArrayList<Entity> entityList = new ArrayList<Entity>();
+		entityList.addAll(Arrays.asList(worldObstacles));
+		entityList.add(leftBoundary);
+		
+		ArrayList<Creature> creatureList = new ArrayList<Creature>();
+		creatureList.addAll(Arrays.asList(creatures));
+		
+		cH = new CollisionHandler(entityList, creatureList);
+		
+//		cH.removeCreature(goomba1);
+		
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
 	}

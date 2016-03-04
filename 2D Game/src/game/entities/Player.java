@@ -14,6 +14,7 @@ public class Player extends Creature {
 	private final int jumpHeight;
 	private double maxSpeedXDir = 200;
 	private double maxSpeedYDir = 300;
+	private Game game;
 
 	private Animation animRight = new Animation(100, Assets.playerRight);
 	private Animation animLeft = new Animation(100, Assets.playerLeft);
@@ -22,9 +23,10 @@ public class Player extends Creature {
 	private Animation animJRight = new Animation(100, Assets.playerRight);
 
 	public Player(Game g, double x, double y, Vector2D vel, int jumpHeight) {
-		super(g, x, y, vel, 64, 64, jumpHeight);
+		super(x, y, vel, 64, 64, jumpHeight);
 		this.jumpHeight = jumpHeight;
 		isStatic = false;
+		this.game = g;
 	}
 
 	public void jump() {
@@ -34,6 +36,12 @@ public class Player extends Creature {
 		} else if (!scheduledJump && vel.getY() < 0) {
 			// scheduledJump = true;
 		}
+	}
+	
+	public void forceJump(){
+		vel.setY(0);
+		vel = Vector2D.add(vel, new Vector2D(jumpHeight, 90, false));
+		jumping = true;
 	}
 
 	@Override
@@ -110,21 +118,23 @@ public class Player extends Creature {
 			moveLeft();
 		} else if (game.getKey().right) {
 			moveRight();
-		} else if(game.getKey().goToSpawn){
+		} else if (game.getKey().goToSpawn) {
 			this.setX(game.world.getSpawnX());
 			this.setY(game.world.getSpawnY());
 			vel.setX(0);
 			vel.setY(0);
 			game.world.setOffset(0);
-		}else{
+		} else {
 			stopX();
-		} 
+		}
 	}
 
 	@Override
 	public void render(Graphics g, int gameHeight, double offset) {
-		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
-		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10, height);
+		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset,
+				(int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
+		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10,
+				height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
@@ -146,5 +156,59 @@ public class Player extends Creature {
 	 * false; if (scheduledJump) { scheduledJump = false; vel.setY(0); jump();
 	 * return false; } return true; } else { return false; } }
 	 */
+
+	@Override
+	public void collision(Entity e, boolean invokedByCreature, int direction) {
+		// TODO Auto-generated method stub
+		switch (e.getClass().getName()) {
+		case "game.entities.Obstacle":
+			switch (direction) {
+			case -1:
+				if (vel.getY() < 0) {
+					vel.setY(0);
+					setHasGround(true);
+					setJumping(false);
+				}
+				moveTo(getX(), e.getBounds().getMaxY() - 0.1);
+				break;
+			case 1:
+				moveTo(getX(), e.getBounds().getMinY() - getHeight());
+				if (vel.getY() > 0)
+					vel.setY(0);
+				break;
+			case -2:
+				vel.setX(0);
+				moveTo(e.getBounds().getMaxX() - 5, getY());
+				break;
+			case 2:
+				vel.setX(0);
+				moveTo(e.getBounds().getMinX() + 5 - getWidth(), getY());
+				break;
+			case 0:
+				System.out.println("PANIC");
+			default:
+				System.out.println("Wie bist du hier hin gekommen?");
+			}
+			break;
+		case "game.entities.Goomba":
+			if (direction == -1) {
+				forceJump();
+			} else {
+				moveTo(game.world.getSpawnX(), game.world.getSpawnY());
+				System.out.println("I died");
+			}
+			break;
+		case "game.entities.Player":
+			System.out.println("How the f*** did you manage to put two players into one game??");
+			break;
+		default:
+			System.out.println("class unknown");
+			break;
+
+		}
+		if (!invokedByCreature) {
+			e.collision(this, true, -direction);
+		}
+	}
 
 }
