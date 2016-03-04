@@ -115,7 +115,7 @@ public class Player extends Creature {
 			this.setY(game.world.getSpawnY());
 			vel.setX(0);
 			vel.setY(0);
-			game.world.setOffset(0);
+			State.get.world.setOffset(0);
 		}else{
 			stopX();
 		} 

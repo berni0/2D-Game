@@ -16,12 +16,20 @@ public abstract class State {
 		return currentState;
 	}
 	
-	protected Game game;
+	private Game game;
 	
 	public State(Game g) {
-		this.game = g;
+		this.setGame(g);
 	}
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }

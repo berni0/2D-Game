@@ -25,9 +25,7 @@ public class Game implements Runnable {
 	public static Vector2D G = new Vector2D(2.5, 270, false);
 	public static Vector2D F = new Vector2D(1.5, 180, false);
 	public static int topBarHeight = 25;
-	public static Vector2D startVec = new Vector2D(0, 0, false);
 
-	int x = 0;
 
 	private int width, height;
 	private boolean running = false;
@@ -41,12 +39,7 @@ public class Game implements Runnable {
 	//States
 	private GameState gameState;
 	
-	private Player player;
-	public World world;
-	private Obstacle leftBoundary;
-	private UserInterface UI;
 
-	private CollisionHandler cH;
 	
 
 	private Thread thread;
@@ -112,18 +105,9 @@ public class Game implements Runnable {
 	private void tick() {
 		key.tick();
 		if(State.getState()!=null){
-			State.getState().render(g);
+			State.getState().tick();
 		}
-		UI.tick();
-		player.tick();
-		cH.tick();
 
-		if (player.getX() > this.width / 2) {
-			world.setOffset(player.getX() - this.width / 2);
-		}
-		else {
-			
-		}
 	}
 
 	private void render() {
@@ -137,11 +121,7 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, this.width, this.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 
-		world.render(g, this.height);
-		UI.render(g);
-		double offset = world.getOffset();
-		player.render(g, this.height, offset);
-		leftBoundary.render(g, this.height, offset);
+
 		
 		if(State.getState()!=null){
 			State.getState().render(g);
@@ -162,20 +142,11 @@ public class Game implements Runnable {
 		
 		display.getFrame().addKeyListener(key);
 
-		world = new World("res/world2.txt");
-		player = new Player(this, world.getSpawnX(), world.getSpawnY(), startVec, 500);
-		UI = new UserInterface(player, this);
-		
-		leftBoundary = new Obstacle(-20, 0, 20, 800);
 
-		Entity[] test = world.getObstacles();
-		Entity[] ent = {player, leftBoundary};
 
-		ArrayList<Entity> entities = new ArrayList<Entity>();
-		entities.addAll(Arrays.asList(ent));
-		entities.addAll(Arrays.asList(test));
 
-		cH = new CollisionHandler(entities);
+
+
 
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
