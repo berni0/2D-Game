@@ -3,6 +3,8 @@ package game.entities;
 import game.gfx.Animation;
 import game.gfx.Assets;
 import game.main.Game;
+import game.states.GameState;
+import game.states.State;
 import game.utilities.Vector2D;
 
 import java.awt.Graphics;
@@ -119,11 +121,11 @@ public class Player extends Creature {
 		} else if (game.getKey().right) {
 			moveRight();
 		} else if (game.getKey().goToSpawn) {
-			this.setX(game.world.getSpawnX());
-			this.setY(game.world.getSpawnY());
+			this.setX(GameState.getWorld().getSpawnX());
+			this.setY(GameState.getWorld().getSpawnY());
 			vel.setX(0);
 			vel.setY(0);
-			game.world.setOffset(0);
+			GameState.getWorld().setOffset(0);
 		} else {
 			stopX();
 		}
@@ -131,10 +133,8 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g, int gameHeight, double offset) {
-		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset,
-				(int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
-		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10,
-				height);
+		g.drawImage(getCurrentAnimationFrame(), (int) this.x - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width, height, null);
+		g.drawRect((int) this.x + 5 - (int) offset, (int) (gameHeight - Game.topBarHeight - height - y), width - 10, height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
@@ -194,7 +194,7 @@ public class Player extends Creature {
 			if (direction == -1) {
 				forceJump();
 			} else {
-				moveTo(game.world.getSpawnX(), game.world.getSpawnY());
+				moveTo(GameState.getWorld().getSpawnX(), GameState.getWorld().getSpawnY());
 				System.out.println("I died");
 			}
 			break;
