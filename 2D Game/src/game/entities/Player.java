@@ -3,6 +3,8 @@ package game.entities;
 import game.gfx.Animation;
 import game.gfx.Assets;
 import game.main.Game;
+import game.states.GameState;
+import game.states.State;
 import game.utilities.Vector2D;
 
 import java.awt.Graphics;
@@ -111,11 +113,11 @@ public class Player extends Creature {
 		} else if (game.getKey().right) {
 			moveRight();
 		} else if(game.getKey().goToSpawn){
-			this.setX(game.world.getSpawnX());
-			this.setY(game.world.getSpawnY());
+			this.setX(GameState.getWorld().getSpawnX());
+			this.setY(GameState.getWorld().getSpawnY());
 			vel.setX(0);
 			vel.setY(0);
-			State.get.world.setOffset(0);
+			GameState.getWorld().setOffset(0);
 		}else{
 			stopX();
 		} 

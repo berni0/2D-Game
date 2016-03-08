@@ -16,7 +16,7 @@ import game.worlds.World;
 public class GameState extends State {
 
 	private Player player;
-	public World world;
+	public static World world;
 	private Obstacle leftBoundary;
 	private UserInterface UI;
 
@@ -62,6 +62,10 @@ public class GameState extends State {
 		double offset = world.getOffset();
 		player.render(g, getGame().getHeight(), offset);
 		leftBoundary.render(g, getGame().getHeight(), offset);
+	}
+
+	public static World getWorld() {
+		return world;
 	}
 
 }

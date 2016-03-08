@@ -3,22 +3,14 @@ package game.main;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import game.entities.Entity;
-import game.entities.Obstacle;
-import game.entities.Player;
 import game.gfx.Assets;
 import game.gfx.ImageLoader;
-import game.gfx.UserInterface;
 import game.graphics.GUI;
 import game.input.KeyManager;
 import game.states.GameState;
 import game.states.State;
-import game.utilities.CollisionHandler;
 import game.utilities.Vector2D;
-import game.worlds.World;
 
 public class Game implements Runnable {
 
