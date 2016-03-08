@@ -54,6 +54,8 @@ public class GameState extends State {
 	public void tick() {
 		UI.tick();
 		player.tick();
+		goomba1.tick();
+		goomba2.tick();
 		cH.tick();
 
 		if (player.getX() > getGame().getWidth() / 2) {
