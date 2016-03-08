@@ -32,6 +32,7 @@ public class Game implements Runnable {
 	private int width, height;
 	private boolean running = false;
 	private int tps, fps;
+	private int ticks, frames;
 
 	private GUI display;
 	private BufferStrategy bs;
@@ -45,9 +46,6 @@ public class Game implements Runnable {
 	private UserInterface UI;
 
 	private CollisionHandler cH;
-	
-
-	private int ticks, frames;
 
 	private Thread thread;
 
