@@ -194,7 +194,7 @@ public class Player extends Creature {
 			if (direction == -1) {
 				forceJump();
 			} else {
-				moveTo(game.world.getSpawnX(), game.world.getSpawnY());
+				moveTo(GameState.getWorld().getSpawnX(), GameState.getWorld().getSpawnY());
 				System.out.println("I died");
 			}
 			break;

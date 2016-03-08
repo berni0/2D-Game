@@ -38,7 +38,7 @@ public class GameState extends State {
 		entities.addAll(Arrays.asList(ent));
 		entities.addAll(Arrays.asList(test));
 		
-		cH = new CollisionHandler(entities);
+		cH = new CollisionHandler(entities, null);
 	}
 
 	@Override
