@@ -20,7 +20,6 @@ public class Game implements Runnable {
 	public static Vector2D F = new Vector2D(1.5, 180, false);
 	public static int topBarHeight = 25;
 
-
 	private int width, height;
 	private boolean running = false;
 	private int tps, fps;
@@ -30,11 +29,8 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 
-	//States
+	// States
 	private GameState gameState;
-	
-
-	
 
 	private Thread thread;
 
@@ -59,17 +55,15 @@ public class Game implements Runnable {
 		double deltaT = 0;
 		long now;
 		long lastTime = System.nanoTime();
-		
-		int currentF=0, currentT=0;
-		long timer=0;
-		
-		
+
+		int currentF = 0, currentT = 0;
+		long timer = 0;
 
 		while (running) {
 			now = System.nanoTime();
 			deltaR += (now - lastTime) / timePerRender;
 			deltaT += (now - lastTime) / timePerTick;
-			timer += now-lastTime;
+			timer += now - lastTime;
 			lastTime = now;
 
 			if (deltaR >= 1) {
@@ -83,8 +77,8 @@ public class Game implements Runnable {
 				currentT++;
 				deltaT--;
 			}
-			
-			if(timer >= 1000000000){
+
+			if (timer >= 1000000000) {
 				frames = currentF;
 				ticks = currentT;
 				currentF = 0;
@@ -98,7 +92,7 @@ public class Game implements Runnable {
 
 	private void tick() {
 		key.tick();
-		if(State.getState()!=null){
+		if (State.getState() != null) {
 			State.getState().tick();
 		}
 
@@ -115,12 +109,9 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, this.width, this.height);
 		g.drawImage(backgroungImg, 0, 0, width, height, null);
 
-
-		
-		if(State.getState()!=null){
+		if (State.getState() != null) {
 			State.getState().render(g);
 		}
-		
 
 		bs.show();
 		g.dispose();
@@ -133,14 +124,8 @@ public class Game implements Runnable {
 
 		gameState = new GameState(this);
 		State.setState(gameState);
-		
+
 		display.getFrame().addKeyListener(key);
-
-
-
-
-
-
 
 		backgroungImg = ImageLoader.loadImage("/Background.png");
 
@@ -204,5 +189,5 @@ public class Game implements Runnable {
 	public void setFrames(int frames) {
 		this.frames = frames;
 	}
-	
+
 }
